@@ -1,5 +1,6 @@
 "use client";
 
+import clsx from "clsx";
 import {
   MenuIcon,
   ShoppingBasketIcon,
@@ -8,32 +9,22 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
 import Search from "@/components/Search";
-import { navbarLinks, ROUTES } from "./navbar.constants";
+import { navbarLinks, ROUTES } from "@/constants/routes";
+import useOpenState from "@/hooks/useOpenState";
 
-const linkClass = (active: boolean) =>
-  active ? "text-green-600" : "transition-colors hover:text-green-600";
-
-const iconLinkClass = (active: boolean) =>
-  active
-    ? "text-green-600"
-    : "rounded-full p-2 transition-colors hover:bg-green-600";
-
-const mobileLinkClass = (active: boolean) =>
-  active
-    ? "block rounded-md px-3 py-2 text-green-600"
-    : "block rounded-md px-3 py-2 transition-colors hover:bg-zinc-200 dark:hover:bg-zinc-800";
+const linkBaseClass = "block rounded-md px-3 py-2 transition-colors";
+const iconBaseClass = "rounded-full p-2 transition-colors";
 
 const Navbar = () => {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { isOpen, open, close } = useOpenState();
   const pathname = usePathname();
 
   const isActive = (path: string) =>
     path === "/" ? pathname === "/" : pathname.startsWith(path);
 
   const handleMobileNavClick = () => {
-    setMobileMenuOpen(false);
+    close();
   };
 
   return (
@@ -46,11 +37,11 @@ const Navbar = () => {
         <button
           type="button"
           className="inline-flex items-center justify-center rounded-md p-2 text-zinc-700 hover:bg-zinc-200 dark:text-zinc-200 dark:hover:bg-zinc-800 md:hidden"
-          aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
-          aria-expanded={mobileMenuOpen}
-          onClick={() => setMobileMenuOpen((value) => !value)}
+          aria-label={isOpen ? "Close menu" : "Open menu"}
+          aria-expanded={isOpen}
+          onClick={isOpen ? close : open}
         >
-          {mobileMenuOpen ? (
+          {isOpen ? (
             <XIcon className="h-5 w-5" />
           ) : (
             <MenuIcon className="h-5 w-5" />
@@ -63,7 +54,10 @@ const Navbar = () => {
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className={linkClass(isActive(item.href))}
+                  className={clsx(
+                    "transition-colors hover:text-green-600",
+                    isActive(item.href) && "text-green-600",
+                  )}
                 >
                   {item.label}
                 </Link>
@@ -77,14 +71,24 @@ const Navbar = () => {
 
           <div className="flex items-center gap-4">
             <Link
-              href={ROUTES.cart}
-              className={iconLinkClass(isActive(ROUTES.cart))}
+              href={ROUTES.cart.root}
+              className={clsx(
+                iconBaseClass,
+                isActive(ROUTES.cart.root)
+                  ? "text-green-600"
+                  : "hover:bg-green-600",
+              )}
             >
               <ShoppingBasketIcon className="h-5 w-5" />
             </Link>
             <Link
-              href={ROUTES.profile}
-              className={iconLinkClass(isActive(ROUTES.profile))}
+              href={ROUTES.profile.root}
+              className={clsx(
+                iconBaseClass,
+                isActive(ROUTES.profile.root)
+                  ? "text-green-600"
+                  : "hover:bg-green-600",
+              )}
             >
               <UserRoundIcon className="h-5 w-5" />
             </Link>
@@ -92,7 +96,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      {mobileMenuOpen && (
+      {isOpen && (
         <div className="mt-4 border-t border-zinc-200 pt-4 dark:border-zinc-800 md:hidden">
           <div className="mb-4">
             <Search />
@@ -104,11 +108,10 @@ const Navbar = () => {
                 <Link
                   href={item.href}
                   onClick={handleMobileNavClick}
-                  className={
-                    isActive(item.href)
-                      ? "block rounded-md px-3 py-2 text-green-600"
-                      : "block rounded-md px-3 py-2 transition-colors hover:bg-zinc-200 dark:hover:bg-zinc-800"
-                  }
+                  className={clsx(
+                    linkBaseClass,
+                    isActive(item.href) && "text-green-600",
+                  )}
                 >
                   {item.label}
                 </Link>
@@ -118,17 +121,23 @@ const Navbar = () => {
             <li className="pt-2">
               <div className="flex items-center gap-3">
                 <Link
-                  href={ROUTES.cart}
+                  href={ROUTES.cart.root}
                   onClick={handleMobileNavClick}
-                  className={mobileLinkClass(isActive(ROUTES.cart))}
+                  className={clsx(
+                    linkBaseClass,
+                    isActive(ROUTES.cart.root) && "text-green-600",
+                  )}
                 >
                   <ShoppingBasketIcon className="h-5 w-5" />
                   Cart
                 </Link>
                 <Link
-                  href={ROUTES.profile}
+                  href={ROUTES.profile.root}
                   onClick={handleMobileNavClick}
-                  className={mobileLinkClass(isActive(ROUTES.profile))}
+                  className={clsx(
+                    linkBaseClass,
+                    isActive(ROUTES.profile.root) && "text-green-600",
+                  )}
                 >
                   <UserRoundIcon className="h-5 w-5" />
                   Profile

@@ -1,18 +1,18 @@
 "use client";
 
 import Link from "next/link";
-import {  useState } from "react";
+import { useState } from "react";
 import { Search as SearchIcon } from "lucide-react";
 import useDebounce from "@/hooks/useDebounce";
 import useProductsSearch from "@/hooks/useProductsSearch";
-import { ROUTES } from "./Navbar/navbar.constants";
+import { ROUTES } from "@/constants/routes";
 
 const Search = () => {
   const [searchValue, setSearchValue] = useState("");
   const [open, setOpen] = useState(false);
 
-const debounced = useDebounce(searchValue, 300);
-const {data: results = [], isLoading} = useProductsSearch(debounced, 40);
+  const debounced = useDebounce(searchValue, 300);
+  const { data: results = [], isLoading } = useProductsSearch(debounced, 40);
 
   return (
     <div className="relative w-full max-w-sm">
@@ -37,7 +37,7 @@ const {data: results = [], isLoading} = useProductsSearch(debounced, 40);
             results.map((result) => (
               <Link
                 key={result.id}
-                href={`/${ROUTES.products}/${result.id}`}
+                href={ROUTES.products.product(result.id)}
                 onClick={() => {
                   setSearchValue("");
                   setOpen(false);
@@ -45,8 +45,10 @@ const {data: results = [], isLoading} = useProductsSearch(debounced, 40);
                 className="block px-3 py-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-sm"
               >
                 <div className="font-medium">{result.name}</div>
-                {result.price != null && (
-                  <div className="text-xs text-zinc-500">${result.price.toFixed(2)}</div>
+                {!!result.price && (
+                  <div className="text-xs text-zinc-500">
+                    ${result.price.toFixed(2)}
+                  </div>
                 )}
               </Link>
             ))
