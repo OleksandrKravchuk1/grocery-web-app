@@ -10,7 +10,8 @@ import {
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Search from "@/components/Search";
-import { navbarLinks, ROUTES } from "@/constants/routes";
+import { ROUTES } from "@/constants/routes";
+import { navbarLinks } from "@/constants/navbar.constants";
 import useOpenState from "@/hooks/useOpenState";
 
 const linkBaseClass = "block rounded-md px-3 py-2 transition-colors";

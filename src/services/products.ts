@@ -1,6 +1,6 @@
 import { supabase } from "@/lib/supabase/client";
 
-type GetProductsFnParams = {
+export type GetProductsParams = {
   search: string;
   limit?: number;
 };
@@ -8,7 +8,7 @@ type GetProductsFnParams = {
 export const getProductsFn = async ({
   search,
   limit = 10,
-}: GetProductsFnParams) => {
+}: GetProductsParams) => {
   const { data, error } = await supabase
     .from("products")
     .select("id,name,slug,price")
