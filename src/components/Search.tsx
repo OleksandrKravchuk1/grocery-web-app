@@ -6,13 +6,17 @@ import { Search as SearchIcon } from "lucide-react";
 import useDebounce from "@/hooks/useDebounce";
 import useProductsSearch from "@/hooks/useProductsSearch";
 import { ROUTES } from "@/constants/routes";
+import useOpenState from "@/hooks/useOpenState";
 
 const Search = () => {
   const [searchValue, setSearchValue] = useState("");
-  const [open, setOpen] = useState(false);
+  const { isOpen, open, close } = useOpenState();
 
   const debounced = useDebounce(searchValue, 300);
-  const { data: results = [], isLoading } = useProductsSearch(debounced, 40);
+  const { data: results = [], isLoading } = useProductsSearch({
+    search: debounced,
+    limit: 40,
+  });
 
   return (
     <div className="relative w-full max-w-sm">
@@ -23,11 +27,11 @@ const Search = () => {
           onChange={(e) => setSearchValue(e.target.value)}
           placeholder="Search products..."
           className="ml-1 outline-none bg-transparent w-full text-sm"
-          onFocus={() => searchValue && results.length > 0 && setOpen(true)}
+          onFocus={() => searchValue && results.length > 0 && open()}
         />
       </div>
 
-      {open && (
+      {isOpen && (
         <div className="absolute left-0 right-0 mt-2 bg-white dark:bg-zinc-950 border rounded-md shadow z-50">
           {isLoading ? (
             <div className="p-2 text-sm text-zinc-500">Loading...</div>
@@ -40,7 +44,7 @@ const Search = () => {
                 href={ROUTES.products.product(result.id)}
                 onClick={() => {
                   setSearchValue("");
-                  setOpen(false);
+                  close();
                 }}
                 className="block px-3 py-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-sm"
               >
