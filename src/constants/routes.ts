@@ -22,4 +22,9 @@ export const ROUTES = {
   profile: {
     root: "/profile",
   },
+  auth: {
+    signIn: "/signin",
+    signUp: "/signup",
+    forgotPassword: "/forgot-password",
+  },
 } as const;
