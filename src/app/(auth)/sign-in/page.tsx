@@ -1,19 +1,24 @@
 "use client";
 
 import Link from "next/link";
+import Button from "@/components/ui/Button";
+import Input from "@/components/ui/Input";
 import { ROUTES } from "@/constants/routes";
 import { useSignIn } from "@/hooks/useSignIn";
 
-const inputClassName = "w-full rounded-md border px-3 py-3";
-const buttonClassName =
-  "w-full rounded-md bg-green-600 px-3 py-2 text-white disabled:opacity-60";
-
 export default function SignInPage() {
-  const { form } = useSignIn();
+  const { form, error } = useSignIn();
+  const isSubmitting = form.state.isSubmitting;
 
   return (
     <div className="space-y-5">
       <h1 className="text-2xl font-semibold">Sign in</h1>
+
+      {error && (
+        <div className="rounded-md bg-red-50 p-3 text-sm text-red-700 dark:bg-red-950 dark:text-red-200 border border-red-200 dark:border-red-800">
+          {error}
+        </div>
+      )}
 
       <form
         onSubmit={(e) => {
@@ -24,24 +29,24 @@ export default function SignInPage() {
       >
         <form.Field name="email">
           {(field) => (
-            <input
-              className={inputClassName}
+            <Input
               placeholder="Email"
               type="email"
               value={field.state.value}
               onChange={(e) => field.handleChange(e.target.value)}
+              disabled={isSubmitting}
               required
             />
           )}
         </form.Field>
         <form.Field name="password">
           {(field) => (
-            <input
-              className={inputClassName}
+            <Input
               placeholder="Password"
               type="password"
               value={field.state.value}
               onChange={(e) => field.handleChange(e.target.value)}
+              disabled={isSubmitting}
               required
             />
           )}
@@ -54,13 +59,20 @@ export default function SignInPage() {
             Forgot password?
           </Link>
         </div>
-        <button
-          className={buttonClassName}
-          disabled={!form.state.canSubmit}
+        <Button
+          disabled={!form.state.canSubmit || isSubmitting}
           type="submit"
+          className="w-full"
         >
-          Sign in
-        </button>
+          {isSubmitting ? (
+            <span className="flex items-center gap-2">
+              <span className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-white border-r-transparent"></span>
+              Signing in...
+            </span>
+          ) : (
+            "Sign in"
+          )}
+        </Button>
       </form>
 
       <div className="text-sm flex items-center justify-between gap-4">

@@ -1,11 +1,23 @@
-import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { ROUTES } from "@/constants/routes";
-import { getCurrentUser, signIn } from "@/services/auth";
+import { signIn } from "@/services/auth";
 import { useForm } from "@tanstack/react-form";
+import { useState } from "react";
 
 export function useSignIn() {
   const router = useRouter();
+  const [error, setError] = useState<string | null>(null);
+
+  const friendly = (err: unknown) => {
+    if (!(err instanceof Error)) return "Sign in failed";
+    if (
+      err.message.includes("Invalid login") ||
+      err.message.includes("Invalid credentials")
+    ) {
+      return "Wrong email or password.";
+    }
+    return err.message;
+  };
 
   const form = useForm({
     defaultValues: {
@@ -13,27 +25,15 @@ export function useSignIn() {
       password: "",
     },
     onSubmit: async ({ value }) => {
-      await signIn(value);
-      router.push(ROUTES.home);
-      router.refresh();
+      setError(null);
+      try {
+        await signIn(value);
+        router.push(ROUTES.home);
+        router.refresh();
+      } catch (error) {
+        setError(friendly(error));
+      }
     },
   });
-
-  useEffect(() => {
-    let mounted = true;
-
-    const checkUser = async () => {
-      const user = await getCurrentUser();
-      if (mounted && user) {
-        router.replace(ROUTES.home);
-      }
-    };
-    checkUser();
-
-    return () => {
-      mounted = false;
-    };
-  }, [router]);
-
-  return { form };
+  return { form, error, setError };
 }

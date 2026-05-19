@@ -23,8 +23,8 @@ export const ROUTES = {
     root: "/profile",
   },
   auth: {
-    signIn: "/signin",
-    signUp: "/signup",
+    signIn: "/sign-in",
+    signUp: "/sign-up",
     forgotPassword: "/forgot-password",
   },
 } as const;
