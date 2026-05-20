@@ -3,7 +3,7 @@ import { ROUTES } from "@/constants/routes";
 import { signInWithEmail } from "@/services/auth";
 import { useForm } from "@tanstack/react-form";
 import { useState } from "react";
-import { signInSchema } from "@/schemas/signIn";
+import { signInSchema } from "@/schemas/auth";
 
 export function useSignIn() {
   const router = useRouter();
