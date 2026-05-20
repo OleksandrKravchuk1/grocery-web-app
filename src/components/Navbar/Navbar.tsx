@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Button } from "@/components/ui/Button";
 import Search from "@/components/Search";
 import { ROUTES } from "@/constants/routes";
 import { navbarLinks } from "@/constants/navbar.constants";
@@ -35,9 +36,11 @@ const Navbar = () => {
           Grocery
         </Link>
 
-        <button
+        <Button
           type="button"
-          className="inline-flex items-center justify-center rounded-md p-2 text-zinc-700 hover:bg-zinc-200 dark:text-zinc-200 dark:hover:bg-zinc-800 md:hidden"
+          variant="ghost"
+          size="iconSm"
+          className="md:hidden"
           aria-label={isOpen ? "Close menu" : "Open menu"}
           aria-expanded={isOpen}
           onClick={isOpen ? close : open}
@@ -47,7 +50,7 @@ const Navbar = () => {
           ) : (
             <MenuIcon className="h-5 w-5" />
           )}
-        </button>
+        </Button>
 
         <div className="hidden items-center gap-8 md:flex">
           <ul className="flex items-center gap-6">

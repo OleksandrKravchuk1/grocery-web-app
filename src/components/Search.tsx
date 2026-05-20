@@ -1,12 +1,13 @@
 "use client";
 
+import { Search as SearchIcon } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
-import { Search as SearchIcon } from "lucide-react";
-import useDebounce from "@/hooks/useDebounce";
-import useProductsSearch from "@/hooks/useProductsSearch";
+import { Input } from "@/components/ui/Input";
 import { ROUTES } from "@/constants/routes";
+import useDebounce from "@/hooks/useDebounce";
 import useOpenState from "@/hooks/useOpenState";
+import useProductsSearch from "@/hooks/useProductsSearch";
 
 const Search = () => {
   const [searchValue, setSearchValue] = useState("");
@@ -20,13 +21,14 @@ const Search = () => {
 
   return (
     <div className="relative w-full max-w-sm">
-      <div className="flex items-center gap-2 border rounded-md px-2 py-1 bg-white dark:bg-zinc-900">
+      <div className="flex items-center gap-2 ">
         <SearchIcon className="h-4 w-4 text-zinc-500" />
-        <input
+        <Input
+          variant="search"
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
           placeholder="Search products..."
-          className="ml-1 outline-none bg-transparent w-full text-sm"
+          className="ml-1"
           onFocus={() => searchValue && results.length > 0 && open()}
         />
       </div>
