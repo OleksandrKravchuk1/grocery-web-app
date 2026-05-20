@@ -3,12 +3,7 @@ import { ROUTES } from "@/constants/routes";
 import { signInWithEmail } from "@/services/auth";
 import { useForm } from "@tanstack/react-form";
 import { useState } from "react";
-import { z } from "zod";
-
-const signInSchema = z.object({
-  email: z.string().min(1, "Email is required").email("Invalid email address"),
-  password: z.string().min(8, "Password must be at least 8 characters"),
-});
+import { signInSchema } from "@/schemas/signIn";
 
 export function useSignIn() {
   const router = useRouter();
@@ -24,8 +19,7 @@ export function useSignIn() {
     validators: {
       onChange: ({ value }) => {
         const result = signInSchema.safeParse(value);
-        if (result.success) return undefined;
-        return result.error.flatten().fieldErrors;
+        return result.success ? null : "Invalid email or password";
       },
     },
     onSubmit: async ({ value }) => {
