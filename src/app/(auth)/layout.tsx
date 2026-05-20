@@ -1,17 +1,12 @@
 import { redirect } from "next/navigation";
-
+import type { PropsWithChildren } from "react";
 import { ROUTES } from "@/constants/routes";
-import { createClient } from "@/lib/supabase/server";
+import { getCurrentUser } from "@/services/auth.server";
 
-export default async function AuthLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const supabase = await createClient();
-  const { data } = await supabase.auth.getUser();
+export default async function AuthLayout({ children }: PropsWithChildren) {
+  const user = await getCurrentUser();
 
-  if (data.user) {
+  if (user) {
     redirect(ROUTES.home);
   }
 

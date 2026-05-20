@@ -3,7 +3,7 @@
 import { Search as SearchIcon } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
-import Input from "@/components/ui/Input";
+import { Input } from "@/components/ui/Input";
 import { ROUTES } from "@/constants/routes";
 import useDebounce from "@/hooks/useDebounce";
 import useOpenState from "@/hooks/useOpenState";
@@ -21,7 +21,7 @@ const Search = () => {
 
   return (
     <div className="relative w-full max-w-sm">
-      <div className="flex items-center gap-2 border rounded-md px-2 py-1 bg-white dark:bg-zinc-900">
+      <div className="flex items-center gap-2 ">
         <SearchIcon className="h-4 w-4 text-zinc-500" />
         <Input
           variant="search"

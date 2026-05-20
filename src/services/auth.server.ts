@@ -1,8 +1,8 @@
-"use srever";
-
+import "server-only";
+import { cache } from "react";
 import { createClient } from "@/lib/supabase/server";
 
-export const getCurrentUser = async () => {
+export const getCurrentUser = cache(async () => {
   const supabase = await createClient();
   const { data, error } = await supabase.auth.getUser();
 
@@ -10,5 +10,5 @@ export const getCurrentUser = async () => {
     return null;
   }
 
-  return data;
-};
+  return data.user;
+});

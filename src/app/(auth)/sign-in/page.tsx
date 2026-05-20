@@ -1,10 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import Button from "@/components/ui/Button";
-import Input from "@/components/ui/Input";
+import { Button } from "@/components/ui/Button";
+import { Input } from "@/components/ui/Input";
 import { ROUTES } from "@/constants/routes";
 import { useSignIn } from "@/hooks/useSignIn";
+import { Loader2Icon } from "lucide-react";
 
 export default function SignInPage() {
   const { form, error } = useSignIn();
@@ -66,7 +67,7 @@ export default function SignInPage() {
         >
           {isSubmitting ? (
             <span className="flex items-center gap-2">
-              <span className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-white border-r-transparent"></span>
+              <Loader2Icon className="h-4 w-4 animate-spin" />
               Signing in...
             </span>
           ) : (
@@ -79,6 +80,7 @@ export default function SignInPage() {
         <div className="flex flex-col items-start gap-1">
           <span className="text-zinc-400">Don't have an account?</span>
           <Link
+            prefetch={true}
             href={ROUTES.auth.signUp}
             className="text-green-600 font-medium hover:underline"
           >

@@ -5,14 +5,22 @@ type SignInWithEmailOptions = {
   password: string;
 };
 
-export const signIn = async ({ email, password }: SignInWithEmailOptions) => {
+const prettifySupabseError = (error: unknown) => {
+  if (error instanceof Error) {
+    return error;
+  }
+
+  return new Error("Sign in failed");
+}
+
+export const signInWithEmail = async ({ email, password }: SignInWithEmailOptions) => {
   const { data, error } = await supabase.auth.signInWithPassword({
     email,
     password,
   });
 
   if (error) {
-    throw new Error(error.message);
+    throw prettifySupabseError(error);
   }
 
   return data;
