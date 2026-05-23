@@ -1,5 +1,5 @@
-import SignUpView from "@/components/SignUp/SignUpView";
+import { SignUpView } from "@/components/SignUp/SignUpView";
 
 export default function Page() {
-    return <SignUpView />
+    return<SignUpView />
 }

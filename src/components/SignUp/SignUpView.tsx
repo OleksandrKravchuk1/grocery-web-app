@@ -7,7 +7,7 @@ import { ROUTES } from "@/constants/routes";
 import { Button } from "../ui/Button";
 import Link from "next/link";
 
-export default function SignUpPage() {
+export function SignUpView() {
   const { form, error } = useSignUp();
   const isSubmitting = form.state.isSubmitting;
 
@@ -74,14 +74,6 @@ export default function SignUpPage() {
             />
           )}
         </form.Field>
-        <div className="text-xs">
-          <Link
-            href={ROUTES.auth.forgotPassword}
-            className="text-green-600 hover:underline"
-          >
-            Forgot password?
-          </Link>
-        </div>
         <Button
           disabled={!form.state.canSubmit || isSubmitting}
           type="submit"
