@@ -8,5 +8,18 @@ export const signInSchema = z.object({
   password: z
     .string()
     .min(8, FormErrors.password.length)
-    .regex(isStrongPasswordRegex, { error: "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character" }),
+    .regex(isStrongPasswordRegex, { error: FormErrors.password.pattern }),
+});
+
+export const signUpSchema = z.object({
+  email: z
+    .email({ error: FormErrors.email.invalid }),
+  password: z
+    .string()
+    .min(8, FormErrors.password.length)
+    .regex(isStrongPasswordRegex, { error: FormErrors.password.pattern }),
+  confirmPassword: z.string(),
+}).refine((data) => data.password === data.confirmPassword, {
+  message: FormErrors.confirmPassword.mismatch,
+  path: ["confirmPassword"],
 });

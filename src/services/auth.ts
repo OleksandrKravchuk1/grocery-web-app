@@ -1,6 +1,6 @@
 import { supabase } from "@/lib/supabase/client";
 
-type SignInWithEmailOptions = {
+export type AuthOptions = {
   email: string;
   password: string;
 };
@@ -13,8 +13,21 @@ const prettifySupabseError = (error: unknown) => {
   return new Error("Sign in failed");
 }
 
-export const signInWithEmail = async ({ email, password }: SignInWithEmailOptions) => {
+export const signInWithEmail = async ({ email, password }: AuthOptions) => {
   const { data, error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  });
+
+  if (error) {
+    throw prettifySupabseError(error);
+  }
+
+  return data;
+};
+
+export const signUpWithEmail = async ({ email, password }: AuthOptions) => {
+  const { data, error } = await supabase.auth.signUp({
     email,
     password,
   });
