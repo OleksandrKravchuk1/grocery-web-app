@@ -10,3 +10,15 @@ export const signInSchema = z.object({
     .min(8, FormErrors.password.length)
     .regex(isStrongPasswordRegex, { error: "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character" }),
 });
+
+export const signUpSchema = z.object({
+  email: z
+    .email({ error: FormErrors.email.invalid }),
+  password: z
+    .string()
+    .min(8, FormErrors.password.length)
+    .regex(isStrongPasswordRegex, { error: "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character" }),
+  confirmPassword: z.string(),
+}).refine((data) => data.password === data.confirmPassword, {
+  message: "Passwords don't match",
+});

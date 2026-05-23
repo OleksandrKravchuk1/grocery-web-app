@@ -1,25 +1,35 @@
 "use client";
 
-import Link from "next/link";
-import { Button } from "@/components/ui/Button";
-import { Input } from "@/components/ui/Input";
-import { ROUTES } from "@/constants/routes";
-import { useSignIn } from "@/hooks/auth/useSignIn";
+import { useSignUp } from "@/hooks/auth/useSignUp";
+import { Input } from "../ui/Input";
 import { Loader2Icon } from "lucide-react";
+import { ROUTES } from "@/constants/routes";
+import { Button } from "../ui/Button";
+import Link from "next/link";
 
-export default function SignInPage() {
-  const { form, error } = useSignIn();
+export default function SignUpPage() {
+  const { form, error } = useSignUp();
   const isSubmitting = form.state.isSubmitting;
 
   return (
     <div className="space-y-5">
-      <h1 className="text-2xl font-semibold">Sign in</h1>
+      <h1 className="text-2xl font-semibold">Sign up</h1>
 
       {error && (
         <div className="rounded-md bg-red-50 p-3 text-sm text-red-700 dark:bg-red-950 dark:text-red-200 border border-red-200 dark:border-red-800">
           {error}
         </div>
       )}
+
+      <form.Subscribe selector={(state) => [state.errors]}>
+        {([errors]) =>
+          errors.length > 0 ? (
+            <div className="rounded-md bg-red-50 p-3 text-sm text-red-700 dark:bg-red-950 dark:text-red-200 border border-red-200 dark:border-red-800">
+              {errors.join(", ")}
+            </div>
+          ) : null
+        }
+      </form.Subscribe>
 
       <form
         onSubmit={(e) => {
@@ -52,6 +62,18 @@ export default function SignInPage() {
             />
           )}
         </form.Field>
+        <form.Field name="confirmPassword">
+          {(field) => (
+            <Input
+              placeholder="Confirm Password"
+              type="password"
+              value={field.state.value}
+              onChange={(e) => field.handleChange(e.target.value)}
+              disabled={isSubmitting}
+              required
+            />
+          )}
+        </form.Field>
         <div className="text-xs">
           <Link
             href={ROUTES.auth.forgotPassword}
@@ -68,26 +90,26 @@ export default function SignInPage() {
           {isSubmitting ? (
             <span className="flex items-center gap-2">
               <Loader2Icon className="h-4 w-4 animate-spin" />
-              Signing in...
+              Signing up...
             </span>
           ) : (
-            "Sign in"
+            "Sign up"
           )}
         </Button>
       </form>
 
       <div className="text-sm flex items-center justify-between gap-4">
         <div className="flex flex-col items-start gap-1">
-          <span className="text-zinc-400">Don't have an account?</span>
+          <span className="text-zinc-400">Already have an account?</span>
           <Link
             prefetch
-            href={ROUTES.auth.signUp}
+            href={ROUTES.auth.signIn}
             className="text-green-600 font-medium hover:underline"
           >
-            Create account
+            Sign in
           </Link>
         </div>
       </div>
     </div>
-  );
+  )
 }
