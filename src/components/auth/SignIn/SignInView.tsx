@@ -4,11 +4,11 @@ import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { ROUTES } from "@/constants/routes";
-import { useSignIn } from "@/hooks/auth/useSignIn";
+import { useSignInForm } from "@/components/auth/SignIn/useSignIn.hooks";
 import { Loader2Icon } from "lucide-react";
 
 export default function SignInPage() {
-  const { form, error } = useSignIn();
+  const { form, error } = useSignInForm();
   const isSubmitting = form.state.isSubmitting;
 
   return (

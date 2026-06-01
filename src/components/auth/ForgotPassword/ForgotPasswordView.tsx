@@ -2,11 +2,10 @@
 
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
-import { useForgotPassword } from "@/hooks/auth/useForgotPassword";
-import { Loader2Icon } from "lucide-react";
+import { useForgotPasswordForm } from "@/components/auth/ForgotPassword/useForgotPasswordForm.hooks";
 
 export function ForgotPasswordView() {
-  const { form, error, success } = useForgotPassword();
+  const { form, error, success } = useForgotPasswordForm();
   const isSubmitting = form.state.isSubmitting;
   return (
     <div className="space-y-5">
@@ -24,7 +23,7 @@ export function ForgotPasswordView() {
         </div>
       )}
 
-      {!success ? (
+      {!success && (
         <>
           <div>
             <p className="text-sm text-gray-600 dark:text-gray-400">
@@ -58,7 +57,6 @@ export function ForgotPasswordView() {
             >
               {isSubmitting ? (
                 <span className="flex items-center gap-2">
-                  <Loader2Icon className="h-4 w-4 animate-spin" />
                   Sending...
                 </span>
               ) : (
@@ -67,7 +65,7 @@ export function ForgotPasswordView() {
             </Button>
           </form>
         </>
-      ) : null}
+      )}
     </div>
 
   );

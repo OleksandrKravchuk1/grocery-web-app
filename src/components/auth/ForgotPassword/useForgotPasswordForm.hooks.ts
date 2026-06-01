@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { useForm } from "@tanstack/react-form";
+import { FormErrors } from "@/constants/form-errors";
 import { forgotPasswordSchema } from "@/schemas/auth";
 import { forgotPassword } from "@/services/auth";
 
-export function useForgotPassword() {
+export function useForgotPasswordForm() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
 
@@ -14,7 +15,7 @@ export function useForgotPassword() {
     validators: {
       onChange: ({ value }) => {
         const result = forgotPasswordSchema.safeParse(value);
-        return result.success ? null : "Invalid email address";
+        return result.success ? null : FormErrors.email.invalid;
       },
     },
     onSubmit: async ({ value }) => {
