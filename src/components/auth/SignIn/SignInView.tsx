@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
+import { PasswordInput } from "@/components/ui/PasswordInput";
 import { ROUTES } from "@/constants/routes";
 import { useSignInForm } from "@/components/auth/SignIn/useSignIn.hooks";
 import { Loader2Icon } from "lucide-react";
@@ -42,9 +43,8 @@ export default function SignInPage() {
         </form.Field>
         <form.Field name="password">
           {(field) => (
-            <Input
+            <PasswordInput
               placeholder="Password"
-              type="password"
               value={field.state.value}
               onChange={(e) => field.handleChange(e.target.value)}
               disabled={isSubmitting}

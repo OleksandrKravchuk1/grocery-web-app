@@ -2,6 +2,7 @@
 
 import { useSignUpForm } from "@/components/auth/SignUp/useSignUp.hooks";
 import { Input } from "@/components/ui/Input";
+import { PasswordInput } from "@/components/ui/PasswordInput";
 import { Loader2Icon } from "lucide-react";
 import { ROUTES } from "@/constants/routes";
 import { Button } from "@/components/ui/Button";
@@ -52,9 +53,8 @@ export function SignUpView() {
         </form.Field>
         <form.Field name="password">
           {(field) => (
-            <Input
+            <PasswordInput
               placeholder="Password"
-              type="password"
               value={field.state.value}
               onChange={(e) => field.handleChange(e.target.value)}
               disabled={isSubmitting}
@@ -64,9 +64,8 @@ export function SignUpView() {
         </form.Field>
         <form.Field name="confirmPassword">
           {(field) => (
-            <Input
+            <PasswordInput
               placeholder="Confirm Password"
-              type="password"
               value={field.state.value}
               onChange={(e) => field.handleChange(e.target.value)}
               disabled={isSubmitting}
