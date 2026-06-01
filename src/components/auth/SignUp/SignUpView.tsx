@@ -1,10 +1,10 @@
 "use client";
 
 import { useSignUp } from "@/hooks/auth/useSignUp";
-import { Input } from "../ui/Input";
+import { Input } from "../../ui/Input";
 import { Loader2Icon } from "lucide-react";
 import { ROUTES } from "@/constants/routes";
-import { Button } from "../ui/Button";
+import { Button } from "../../ui/Button";
 import Link from "next/link";
 
 export function SignUpView() {
