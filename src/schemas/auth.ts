@@ -23,3 +23,20 @@ export const signUpSchema = z.object({
   message: FormErrors.confirmPassword.mismatch,
   path: ["confirmPassword"],
 });
+
+export const forgotPasswordSchema = z.object({
+  email: z
+    .email({ error: FormErrors.email.invalid }),
+});
+
+export const resetPasswordSchema = z.object({
+  password: z
+    .string()
+    .min(8, { message: FormErrors.password.length })
+    .max(28, { message: FormErrors.password.length })
+    .regex(isStrongPasswordRegex, { message: FormErrors.password.pattern }),
+  confirmPassword: z.string(),
+}).refine((data) => data.password === data.confirmPassword, {
+  message: FormErrors.confirmPassword.mismatch,
+  path: ["confirmPassword"],
+});

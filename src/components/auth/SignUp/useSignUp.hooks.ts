@@ -5,7 +5,7 @@ import { useForm } from "@tanstack/react-form";
 import { useState } from "react";
 import { signUpSchema } from "@/schemas/auth";
 
-export function useSignUp() {
+export function useSignUpForm() {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
 
