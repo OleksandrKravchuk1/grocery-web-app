@@ -18,3 +18,16 @@ export const getProductsFn = async ({
   if (error) throw error;
   return data ?? [];
 };
+
+export async function getProductsByCategoryId(category_id: number) {
+  const { data, error } = await supabase
+    .from('products')
+    .select()
+    .eq('category_id', category_id);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data ?? [];
+}
