@@ -1,7 +1,5 @@
-export default function Home() {
-  return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      Home page
-    </div>
-  );
-};
+import { HomePageView } from "@/components/HomePageView";
+
+export default function HomePage() {
+  return <HomePageView />;
+}
