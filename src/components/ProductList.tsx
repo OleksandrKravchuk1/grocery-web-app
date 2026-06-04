@@ -1,5 +1,6 @@
 import { useProductsByCategoryId } from "@/hooks/useProductsByCategoryId";
 import { ProductCard } from "./ProductCard";
+import { useFavoriteProducts } from "@/hooks/useFavoriteProducts";
 
 type Props = {
   categoryId: number;
@@ -7,6 +8,7 @@ type Props = {
 
 export function ProductList({ categoryId }: Props) {
   const { products, error, isError, isLoading } = useProductsByCategoryId(categoryId);
+  const { favoriteIds, toggleFavorite } = useFavoriteProducts();
 
   if (isLoading) {
     return (
@@ -34,8 +36,8 @@ export function ProductList({ categoryId }: Props) {
             title={product.title}
             price={typeof product.price === "number" ? product.price : 0}
             rating={product.rating ?? 0}
-            isFavorite={false}
-            onAddToFavorites={(id) => console.log(`Add product ${id} to favorites`)}
+            isFavorite={favoriteIds.includes(product.id)}
+            onAddToFavorites={toggleFavorite}
           />
         </div>
       ))}
