@@ -1,3 +1,5 @@
+'use client';
+
 import { useAuth } from "@/hooks/useAuth";
 import { getFavorites, addFavorite, deleteFavorite } from "@/services/favorites";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";

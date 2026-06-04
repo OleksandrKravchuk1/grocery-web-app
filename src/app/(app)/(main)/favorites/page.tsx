@@ -1,7 +1,5 @@
-export default function Page() {
-    return (
-        <div className="p-8">
-            <h1>Favorites</h1>
-        </div>
-    );
-};
+import { FavoritePageView } from "./_components/FavoritePageView";
+
+export default function FavoritesPage() {
+  return <FavoritePageView />;
+}
