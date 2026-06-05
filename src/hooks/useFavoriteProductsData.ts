@@ -8,6 +8,7 @@ export function useFavoriteProductsData() {
   const {
     favoriteIds,
     toggleFavorite,
+    refetch: refetchIds,
     isLoading: isIdsLoading,
     isError: isIdsError,
     isToggling,
@@ -20,14 +21,20 @@ export function useFavoriteProductsData() {
     staleTime: 1000 * 60,
   });
 
+  const refetch = () => {
+    void refetchIds();
+    void productsQuery.refetch();
+  };
+
   return {
     products: productsQuery.data ?? [],
     favoriteIds,
     toggleFavorite,
+    refetch,
     isToggling,
     isLoading: isIdsLoading || productsQuery.isLoading,
     isError: isIdsError || productsQuery.isError,
-    isEmpty:
+
       !isIdsLoading &&
       !isIdsError &&
       !productsQuery.isLoading &&

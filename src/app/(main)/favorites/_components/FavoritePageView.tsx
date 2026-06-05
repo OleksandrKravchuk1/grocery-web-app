@@ -3,6 +3,8 @@
 import { useFavoriteProductsData } from "@/hooks/useFavoriteProductsData";
 import { Heart } from "lucide-react";
 import { FavoritesEmpty } from "./FavoritesEmpty";
+import { FavoritesError } from "./FavoritesError";
+import { FavoritesLoading } from "./FavoritesLoading";
 import { ProductCard } from "@/components/ProductCard";
 
 export function FavoritePageView() {
@@ -10,7 +12,10 @@ export function FavoritePageView() {
     products,
     favoriteIds,
     toggleFavorite,
+    refetch,
     isToggling,
+    isLoading,
+    isError,
     isEmpty,
   } = useFavoriteProductsData();
 
@@ -26,7 +31,7 @@ export function FavoritePageView() {
             <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">
               My Favorites
             </h1>
-            {!isEmpty && (
+            {!isLoading && !isError && !isEmpty && (
               <p className="text-sm text-zinc-500 dark:text-zinc-400">
                 {favoriteIds.length} {favoriteIds.length === 1 ? "item" : "items"} saved
               </p>
@@ -34,9 +39,11 @@ export function FavoritePageView() {
           </div>
         </div>
 
-        {isEmpty && <FavoritesEmpty />}
+        {isLoading && <FavoritesLoading />}
+        {isError && <FavoritesError onRetry={refetch} />}
+        {!isLoading && !isError && isEmpty && <FavoritesEmpty />}
 
-        {!isEmpty && (
+        {!isLoading && !isError && !isEmpty && (
           <div className="flex flex-wrap gap-6">
             {products.map((product) => {
               if (!product) return null;

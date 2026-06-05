@@ -49,6 +49,7 @@ export function useFavoriteProducts() {
   return {
     favoriteIds,
     toggleFavorite: handleToggleFavorite,
+    refetch: favoritesQuery.refetch,
     isLoading: favoritesQuery.isLoading,
     isError: favoritesQuery.isError,
     isToggling: toggleFavoriteMutation.isPending,
