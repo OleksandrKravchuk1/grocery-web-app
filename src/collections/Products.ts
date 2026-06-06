@@ -21,11 +21,14 @@ export const Products: CollectionConfig = {
       name: 'price',
       type: 'number',
       required: true,
+      min: 0,
     },
     {
       name: 'rating',
       type: 'number',
       required: true,
+      min: 0,
+      max: 5,
     },
     {
       name: 'image',

@@ -3,8 +3,10 @@
 import { prisma } from "@/lib/prisma";
 
 export async function addFavorite(userId: string, productId: number) {
-  const fav = await prisma.favourite.create({
-    data: { userId, productId },
+  const fav = await prisma.favourite.upsert({
+    where: { userId_productId: { userId, productId } },
+    create: { userId, productId },
+    update: {},
   });
   return fav.productId;
 }

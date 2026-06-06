@@ -43,7 +43,7 @@ export default buildConfig({
       },
     }),
   ],
-  secret: process.env.PAYLOAD_SECRET || '',
+  secret: process.env.PAYLOAD_SECRET ?? (() => { throw new Error('PAYLOAD_SECRET is not set') })(),
   db: postgresAdapter({
     pool: {
       connectionString: process.env.DATABASE_URL,

@@ -3,7 +3,7 @@ import type { CollectionConfig } from 'payload'
 export const Profiles: CollectionConfig = {
   slug: 'profiles',
   access: {
-    read: () => true,
+    read: ({ req: { user } }) => Boolean(user),
     create: ({ req: { user } }) => Boolean(user),
     update: ({ req: { user } }) => Boolean(user),
     delete: ({ req: { user } }) => Boolean(user),

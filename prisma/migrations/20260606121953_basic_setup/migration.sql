@@ -8,12 +8,26 @@ CREATE TABLE "categories" (
 );
 
 -- CreateTable
+CREATE TABLE "media" (
+    "id" SERIAL NOT NULL,
+    "alt" TEXT,
+    "url" TEXT,
+    "filename" TEXT,
+    "mime_type" TEXT,
+    "filesize" INTEGER,
+    "width" INTEGER,
+    "height" INTEGER,
+
+    CONSTRAINT "media_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "products" (
     "id" SERIAL NOT NULL,
     "title" TEXT NOT NULL,
-    "price" DOUBLE PRECISION NOT NULL,
+    "price" DECIMAL(10,2) NOT NULL,
     "rating" DOUBLE PRECISION NOT NULL,
-    "image" TEXT NOT NULL,
+    "image_id" INTEGER,
     "category_id" INTEGER NOT NULL,
 
     CONSTRAINT "products_pkey" PRIMARY KEY ("id")
@@ -36,7 +50,7 @@ CREATE TABLE "orders" (
     "id" SERIAL NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "user_id" UUID,
-    "total_price" DOUBLE PRECISION,
+    "total_price" DECIMAL(10,2),
     "status" TEXT,
 
     CONSTRAINT "orders_pkey" PRIMARY KEY ("id")
@@ -48,7 +62,7 @@ CREATE TABLE "order_items" (
     "order_id" INTEGER NOT NULL,
     "product_id" INTEGER,
     "quantity" INTEGER,
-    "price" DOUBLE PRECISION,
+    "price" DECIMAL(10,2),
 
     CONSTRAINT "order_items_pkey" PRIMARY KEY ("id")
 );
@@ -61,6 +75,12 @@ CREATE TABLE "favourites" (
 
     CONSTRAINT "favourites_pkey" PRIMARY KEY ("id")
 );
+
+-- CreateIndex
+CREATE UNIQUE INDEX "favourites_user_id_product_id_key" ON "favourites"("user_id", "product_id");
+
+-- AddForeignKey
+ALTER TABLE "products" ADD CONSTRAINT "products_image_id_fkey" FOREIGN KEY ("image_id") REFERENCES "media"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "products" ADD CONSTRAINT "products_category_id_fkey" FOREIGN KEY ("category_id") REFERENCES "categories"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
