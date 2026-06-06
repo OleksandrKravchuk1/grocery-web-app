@@ -1,4 +1,4 @@
-import { FavoritePageView } from "./_components/FavoritePageView";
+import { FavoritePageView } from "../../../components/favorites/FavoritePageView";
 
 export default function FavoritesPage() {
   return <FavoritePageView />;

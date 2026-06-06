@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { getProductsFn } from "@/services/products";
+import { QUERY_KEYS } from "@/constants/queryKeys";
 
 interface IUseProductsSearchOptions {
   search: string;
@@ -11,7 +12,7 @@ export default function useProductsSearch({
   limit,
 }: IUseProductsSearchOptions) {
   return useQuery({
-    queryKey: ["products", search],
+    queryKey: QUERY_KEYS.products(search),
     queryFn: () => getProductsFn({ search, limit }),
     enabled: !!search,
     staleTime: 60_000,
