@@ -1,5 +1,6 @@
-import { FavoritesLoading } from "./_components/FavoritesLoading";
+import { FavoritesLoading } from "@/components/favorites/FavoritesLoading";
 
-export default function Loading() {
+export default function FavoritesPageLoading() {
   return <FavoritesLoading />;
 }
+

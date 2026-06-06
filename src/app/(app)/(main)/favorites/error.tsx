@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { FavoritesError } from "./_components/FavoritesError";
+import { FavoritesError } from "@/components/favorites/FavoritesError";
 
 type Props = {
   error: Error & { digest?: string };
   reset: () => void;
 };
 
-export default function Error({ reset }: Props) {
+export default function FavoritesPageError({ reset }: Props) {
   return <FavoritesError onRetry={reset} />;
 }

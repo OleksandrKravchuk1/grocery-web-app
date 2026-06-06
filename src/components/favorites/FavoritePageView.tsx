@@ -2,7 +2,7 @@
 
 import { useQueryClient } from "@tanstack/react-query";
 import { HeartIcon } from "lucide-react";
-import { ProductCard } from "@/components/homepage/ProductCard";
+import { ProductCard } from "@/components/ProductCard";
 import { useFavoriteProductsData } from "@/hooks/useFavoriteProductsData";
 import { FavoritesEmpty } from "./FavoritesEmpty";
 import { FavoritesError } from "./FavoritesError";
