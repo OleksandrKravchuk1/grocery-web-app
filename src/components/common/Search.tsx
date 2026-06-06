@@ -43,14 +43,14 @@ const Search = () => {
             results.map((result) => (
               <Link
                 key={result.id}
-                href={ROUTES.products.product(result.id)}
+                href={ROUTES.products.product(String(result.id))}
                 onClick={() => {
                   setSearchValue("");
                   close();
                 }}
                 className="block px-3 py-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-sm"
               >
-                <div className="font-medium">{result.name}</div>
+                <div className="font-medium">{result.title}</div>
                 {!!result.price && (
                   <div className="text-xs text-zinc-500">
                     ${result.price.toFixed(2)}

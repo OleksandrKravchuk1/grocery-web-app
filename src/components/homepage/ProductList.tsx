@@ -32,7 +32,7 @@ export function ProductList({ categoryId }: Props) {
         <div key={product.id} className="min-w-44 shrink-0 snap-start">
           <ProductCard
             id={product.id}
-            image={product.image}
+            image={product.image?.url ?? ''}
             title={product.title}
             price={typeof product.price === "number" ? product.price : 0}
             rating={product.rating ?? 0}
