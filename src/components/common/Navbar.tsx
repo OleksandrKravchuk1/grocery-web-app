@@ -10,7 +10,7 @@ import {
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/Button";
-import Search from "@/components/Search";
+import Search from "@/components/common/Search";
 import { ROUTES } from "@/constants/routes";
 import { navbarLinks } from "@/constants/navbar.constants";
 import useOpenState from "@/hooks/useOpenState";
