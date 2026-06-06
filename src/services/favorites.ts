@@ -1,62 +1,31 @@
-import { supabase } from "@/lib/supabase/client";
-import { FavoriteRow } from "@/types/favorite";
+"use server";
 
-export async function addFavorite(user_id: string, product_id: number) {
-    const { data, error } = await supabase
-        .from('favourites')
-        .insert({
-            user_id: user_id,
-            product_id: product_id
-        })
-        .select();
+import { prisma } from "@/lib/prisma";
 
-    if (error) {
-        throw new Error(error.message);
-    }
-
-    return (data ?? []).map((item: FavoriteRow) => item.product_id);
+export async function addFavorite(userId: string, productId: number) {
+  const fav = await prisma.favourite.create({
+    data: { userId, productId },
+  });
+  return fav.productId;
 }
 
-export async function deleteFavorite(user_id: string, product_id: number) {
-    const { data, error } = await supabase
-        .from('favourites')
-        .delete()
-        .eq('user_id', user_id)
-        .eq('product_id', product_id)
-        .select();
-
-    if (error) {
-        throw new Error(error.message);
-    }
-
-    return data;
+export async function deleteFavorite(userId: string, productId: number) {
+  return prisma.favourite.deleteMany({
+    where: { userId, productId },
+  });
 }
 
-export async function getFavorites(user_id: string): Promise<number[]> {
-    const { data, error } = await supabase
-        .from('favourites')
-        .select('product_id')
-        .eq('user_id', user_id)
-        .order('id', { ascending: false });
-
-    if (error) {
-        throw new Error(error.message);
-    }
-
-    return (data ?? []).map((item: FavoriteRow) => item.product_id);
+export async function getFavorites(userId: string): Promise<number[]> {
+  const favs = await prisma.favourite.findMany({
+    where: { userId },
+    select: { productId: true },
+    orderBy: { id: "desc" },
+  });
+  return favs.map((f) => f.productId).filter((id): id is number => id !== null);
 }
 
-export async function isFavourite(user_id: string, product_id: number) {
-    const { data, error } = await supabase
-        .from('favourites')
-        .select('*')
-        .eq('user_id', user_id)
-        .eq('product_id', product_id)
-        .single();
-
-    if (error) {
-        throw new Error(error.message);
-    }
-
-    return data;
+export async function isFavourite(userId: string, productId: number) {
+  return prisma.favourite.findFirst({
+    where: { userId, productId },
+  });
 }

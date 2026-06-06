@@ -1,0 +1,89 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Category {
+  id       Int       @id @default(autoincrement())
+  name     String
+  icon     String
+  products Product[]
+
+  @@map("categories")
+}
+
+model Media {
+  id       Int       @id @default(autoincrement())
+  alt      String?
+  url      String?
+  filename String?
+  mimeType String?   @map("mime_type")
+  filesize Int?
+  width    Int?
+  height   Int?
+  products Product[]
+
+  @@map("media")
+}
+
+model Product {
+  id         Int         @id @default(autoincrement())
+  title      String
+  price      Float
+  rating     Float
+  imageId    Int?        @map("image_id")
+  image      Media?      @relation(fields: [imageId], references: [id])
+  categoryId Int         @map("category_id")
+  category   Category    @relation(fields: [categoryId], references: [id])
+  favourites Favourite[]
+  orderItems OrderItem[]
+
+  @@map("products")
+}
+
+model Profile {
+  id        String    @id @db.Uuid
+  firstName String    @default("") @map("first_name")
+  lastName  String?   @map("last_name")
+  phone     String?
+  gender    String?
+  birthday  DateTime? @db.Date
+
+  @@map("profiles")
+}
+
+model Order {
+  id         Int         @id @default(autoincrement())
+  createdAt  DateTime    @default(now()) @map("created_at")
+  userId     String?     @map("user_id") @db.Uuid
+  totalPrice Float?      @map("total_price")
+  status     String?
+  orderItems OrderItem[]
+
+  @@map("orders")
+}
+
+model OrderItem {
+  id        Int      @id @default(autoincrement())
+  orderId   Int      @map("order_id")
+  productId Int?     @map("product_id")
+  quantity  Int?
+  price     Float?
+  order     Order    @relation(fields: [orderId], references: [id])
+  product   Product? @relation(fields: [productId], references: [id])
+
+  @@map("order_items")
+}
+
+model Favourite {
+  id        Int      @id @default(autoincrement())
+  userId    String   @map("user_id") @db.Uuid
+  productId Int?     @map("product_id")
+  product   Product? @relation(fields: [productId], references: [id])
+
+  @@map("favourites")
+}
