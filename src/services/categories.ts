@@ -1,14 +1,9 @@
-import { supabase } from "@/lib/supabase/client";
+"use server";
+
+import { prisma } from "@/lib/prisma";
 
 export async function getCategories() {
-    const { data, error } = await supabase
-        .from('categories')
-        .select()
-        .order('id', { ascending: true });
-
-    if (error) {
-        throw new Error(error.message);
-    }
-
-    return data ?? [];
+  return prisma.category.findMany({
+    orderBy: { id: "asc" },
+  });
 }
