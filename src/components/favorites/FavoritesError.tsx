@@ -1,4 +1,5 @@
 import { AlertCircleIcon, RefreshCwIcon } from "lucide-react";
+import { Button } from "@/components/ui/Button";
 
 type Props = {
   onRetry: () => void;
@@ -18,14 +19,14 @@ export function FavoritesError({ onRetry }: Props) {
           We couldn&apos;t load your favorites. Please try again.
         </p>
       </div>
-      <button
-        type="button"
+      <Button
+        variant="dark"
         onClick={onRetry}
-        className="flex items-center gap-2 rounded-full bg-zinc-900 px-6 py-2.5 text-sm font-semibold text-white transition-all hover:bg-zinc-700 active:scale-95 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-300"
+        className="h-auto rounded-full px-6 py-2.5 font-semibold"
       >
         <RefreshCwIcon size={14} />
         Try again
-      </button>
+      </Button>
     </div>
   );
 }

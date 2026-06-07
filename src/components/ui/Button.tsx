@@ -19,6 +19,7 @@ const buttonVariants = cva(
         link: "text-green-600 underline-offset-4 hover:underline dark:text-green-500",
         destructive:
           "bg-red-600 text-white shadow-sm hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-600",
+        dark: "bg-zinc-900 text-white shadow-sm hover:bg-zinc-700 active:scale-95 transition-all dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-300",
       },
       size: {
         default: "h-10 px-4 py-2",
@@ -37,11 +38,18 @@ const buttonVariants = cva(
 
 export interface ButtonProps
   extends ButtonHTMLAttributes<HTMLButtonElement>,
-  VariantProps<typeof buttonVariants> {
+    VariantProps<typeof buttonVariants> {
   ref?: Ref<HTMLButtonElement>;
 }
 
-export const Button = ({ className, variant, size, type = "button", ref, ...props }: ButtonProps) => (
+export const Button = ({
+  className,
+  variant,
+  size,
+  type = "button",
+  ref,
+  ...props
+}: ButtonProps) => (
   <button
     ref={ref}
     type={type}
