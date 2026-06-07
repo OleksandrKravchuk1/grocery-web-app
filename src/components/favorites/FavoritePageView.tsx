@@ -2,7 +2,7 @@
 
 import { useQueryClient } from "@tanstack/react-query";
 import { HeartIcon } from "lucide-react";
-import { ProductCard } from "@/components/ProductCard";
+import { ProductCard } from "@/components/common/ProductCard";
 import { useFavoriteProductsData } from "@/hooks/useFavoriteProductsData";
 import { FavoritesEmpty } from "./FavoritesEmpty";
 import { FavoritesError } from "./FavoritesError";
@@ -59,9 +59,9 @@ export function FavoritePageView() {
                 <ProductCard
                   key={product.id}
                   id={product.id}
-                  image={product.image}
+                  image={product.image?.url ?? ""}
                   title={product.title}
-                  price={product.price}
+                  price={Number(product.price)}
                   rating={product.rating ?? 0}
                   isFavorite={favoriteIds.includes(product.id)}
                   onAddToFavorites={toggleFavorite}

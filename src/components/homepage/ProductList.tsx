@@ -1,5 +1,5 @@
 import { useProductsByCategoryId } from "@/hooks/useProductsByCategoryId";
-import { ProductCard } from "./ProductCard";
+import { ProductCard } from "../common/ProductCard";
 import { useFavoriteProducts } from "@/hooks/useFavoriteProducts";
 
 type Props = {
