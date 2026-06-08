@@ -2,11 +2,19 @@
 
 import { useCategories } from "@/hooks/useCategory";
 import { CategorySection } from "./CategorySection";
-import { AlertCircleIcon, RefreshCwIcon } from "lucide-react";
+import { AlertCircleIcon, Loader2Icon, RefreshCwIcon } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 
 export function HomePageView() {
-  const { categories, isError, refetch } = useCategories();
+  const { categories, isError, isLoading, refetch } = useCategories();
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <Loader2Icon className="animate-spin h-10 w-10 text-blue-500 text-green-500" />
+      </div>
+    )
+  }
 
   if (isError) {
     return (

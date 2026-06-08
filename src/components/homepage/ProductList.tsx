@@ -7,11 +7,12 @@ type Props = {
   categoryId: number;
 };
 
+const SKELETON_COUNT = 6;
+
 export function ProductList({ categoryId }: Props) {
   const { products, error, isError, isLoading } = useProductsByCategoryId(categoryId);
   const { favoriteIds, toggleFavorite } = useFavoriteProducts();
 
-  const SKELETON_COUNT = 6;
 
   if (isLoading) {
     return (
