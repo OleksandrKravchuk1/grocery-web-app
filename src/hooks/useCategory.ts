@@ -13,5 +13,6 @@ export function useCategories() {
         categories: (query.data ?? []) as Category[],
         isLoading: query.isLoading,
         isError: query.isError,
+        refetch: query.refetch,
     };
 }
