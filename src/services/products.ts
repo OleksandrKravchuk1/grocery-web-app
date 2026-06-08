@@ -21,3 +21,15 @@ export async function getProductsByCategoryId(categoryId: number) {
     include: { image: true },
   });
 }
+
+export async function getProductsByIds(ids: number[]) {
+  if (ids.length === 0) return [];
+
+  const data = await prisma.product.findMany({
+    where: { id: { in: ids } },
+    include: { image: true },
+  });
+
+  const productMap = new Map((data ?? []).map((p) => [p.id, p]));
+  return ids.map((id) => productMap.get(id)).filter(Boolean);
+}

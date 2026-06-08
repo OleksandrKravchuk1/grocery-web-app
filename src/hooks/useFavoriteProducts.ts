@@ -1,13 +1,16 @@
+'use client';
+
 import { useAuth } from "@/hooks/useAuth";
 import { getFavorites, addFavorite, deleteFavorite } from "@/services/favorites";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { QUERY_KEYS } from "@/constants/queryKeys";
 
 export function useFavoriteProducts() {
   const { user } = useAuth();
   const queryClient = useQueryClient();
 
   const favoritesQuery = useQuery({
-    queryKey: ["favoriteProducts", user?.id],
+    queryKey: QUERY_KEYS.favoriteProducts(user?.id),
     queryFn: () => getFavorites(user?.id || ""),
     enabled: !!user?.id,
   });
@@ -27,7 +30,7 @@ export function useFavoriteProducts() {
     },
     onSuccess: () => {
       void queryClient.invalidateQueries({
-        queryKey: ["favoriteProducts", user?.id],
+        queryKey: QUERY_KEYS.favoriteProducts(user?.id),
       });
     },
   });
