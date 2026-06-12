@@ -12,16 +12,16 @@ export function ProfileView() {
   const { user } = useAuth();
   const { form, isLoading, isSaving, message, setMessage } = useProfileForm();
 
+  if (!user) {
+    return <GuestProfileView />;
+  }
+
   if (isLoading && user) {
     return (
       <div className="flex min-h-[calc(100vh-85px)] items-center justify-center bg-zinc-50 dark:bg-black">
         <Loader2Icon className="h-10 w-10 animate-spin text-green-600 dark:text-green-500" />
       </div>
     );
-  }
-
-  if (!user) {
-    return <GuestProfileView />;
   }
 
   const handleSignOutError = (errorText: string) => {

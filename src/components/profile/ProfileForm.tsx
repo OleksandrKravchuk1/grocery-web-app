@@ -1,14 +1,13 @@
-/* biome-ignore-all lint/suspicious/noExplicitAny: TanStack Form types require 12 generic arguments and implicit any is disallowed by tsc */
 "use client";
 
 import { CalendarIcon, Loader2Icon, PhoneIcon, UserIcon } from "lucide-react";
 import { ProfileFormField } from "@/components/profile/ProfileFormField";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
-import type { GenderOption } from "@/types/profile";
 import { formatBirthdayInput } from "@/utils/formatBithdayInput";
+import { Gender } from "@/types/profile";
 
-const genderOptions: GenderOption[] = ["Male", "Female", "Other"];
+const genderOptions = Object.values(Gender)
 
 interface ProfileFormProps {
   form: any;
@@ -31,7 +30,7 @@ export function ProfileForm({ form, isSaving }: ProfileFormProps) {
       >
         <div className="grid gap-4 sm:grid-cols-2">
           <form.Field name="firstName">
-            {(field: any) => (
+            {(field: string) => (
               <ProfileFormField
                 id="first-name"
                 label="First Name"
@@ -44,7 +43,7 @@ export function ProfileForm({ form, isSaving }: ProfileFormProps) {
           </form.Field>
 
           <form.Field name="lastName">
-            {(field: any) => (
+            {(field: string) => (
               <ProfileFormField
                 id="last-name"
                 label="Last Name"
@@ -58,7 +57,7 @@ export function ProfileForm({ form, isSaving }: ProfileFormProps) {
 
         <div className="grid gap-4 sm:grid-cols-2">
           <form.Field name="birthday">
-            {(field: any) => (
+            {(field: string) => (
               <ProfileFormField
                 id="birthday"
                 label="Birthday"
@@ -72,7 +71,7 @@ export function ProfileForm({ form, isSaving }: ProfileFormProps) {
           </form.Field>
 
           <form.Field name="phone">
-            {(field: any) => (
+            {(field: string) => (
               <ProfileFormField
                 id="phone-number"
                 label="Phone Number"

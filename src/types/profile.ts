@@ -1,6 +1,10 @@
 import type { LucideIcon } from "lucide-react";
 
-export type GenderOption = "Male" | "Female" | "Other";
+export enum Gender {
+  Male = "Male",
+  Female = "Female",
+  Other = "Other",
+}
 
 export interface Profile {
   id: string;
@@ -15,7 +19,7 @@ export type ProfileFormValues = {
   firstName: string;
   lastName: string;
   phone: string;
-  gender: GenderOption;
+  gender: Gender;
   birthday: string;
 };
 

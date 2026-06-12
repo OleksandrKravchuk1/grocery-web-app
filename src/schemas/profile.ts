@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { Gender } from "@/types/profile";
 
 export const profileFormSchema = z.object({
   firstName: z
@@ -15,7 +16,7 @@ export const profileFormSchema = z.object({
     .max(20, "Phone number must be at most 20 characters")
     .optional()
     .or(z.literal("")),
-  gender: z.enum(["Male", "Female", "Other"]),
+  gender: z.enum(Gender),
   birthday: z
     .string()
     .refine((date) => {

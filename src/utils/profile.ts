@@ -1,8 +1,10 @@
-import { DBProfile, GenderOption, ProfileFormValues } from "@/types/profile";
+import { DBProfile, Gender, ProfileFormValues } from "@/types/profile";
 
-export function toGender(value?: string | null): GenderOption {
-  if (value === "Male" || value === "Female" || value === "Other") return value;
-  return "Other";
+export function toGender(value?: string | null): Gender {
+  if (value === Gender.Male || value === Gender.Female || value === Gender.Other) {
+    return value as Gender;
+  }
+  return Gender.Other;
 }
 
 export function toFormValues(profile?: DBProfile | null): ProfileFormValues {

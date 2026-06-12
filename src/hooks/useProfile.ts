@@ -12,7 +12,7 @@ export function useProfile() {
   const queryClient = useQueryClient();
 
   const query = useQuery({
-    queryKey: QUERY_KEYS.profile(user?.id ?? ""),
+    queryKey: QUERY_KEYS.profile(user?.id),
     queryFn: () => {
       if (!user?.id) throw new Error("User not logged in");
       return fetchProfile(user.id);
@@ -28,9 +28,11 @@ export function useProfile() {
       return saveProfile(user.id, values);
     },
     onSuccess: () => {
-      void queryClient.invalidateQueries({
-        queryKey: QUERY_KEYS.profile(user?.id ?? ""),
-      });
+      if (user?.id) {
+        void queryClient.invalidateQueries({
+          queryKey: QUERY_KEYS.profile(user.id),
+        });
+      }
     },
   });
 

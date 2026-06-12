@@ -34,6 +34,10 @@ export function ProfileAvatarCard({
     },
   });
 
+  const handleSignOut = () => {
+    signOutMutation.mutate();
+  }
+
   const initials = `${firstName[0] || ""}${lastName[0] || ""}`.toUpperCase() || "U";
   const displayName = firstName ? `${firstName} ${lastName}`.trim() : "User Profile";
 
@@ -46,10 +50,12 @@ export function ProfileAvatarCard({
       <h2 className="mt-4 text-xl font-bold text-zinc-900 dark:text-zinc-50 text-center">
         {displayName}
       </h2>
-      <p className="text-sm text-zinc-400 mt-1 flex items-center gap-1 break-all animate-in fade-in duration-300">
-        <MailIcon className="h-3.5 w-3.5 shrink-0" />
-        {email}
-      </p>
+      {email && (
+        <p className="text-sm text-zinc-400 mt-1 flex items-center gap-1 break-all animate-in fade-in duration-300">
+          <MailIcon className="h-3.5 w-3.5 shrink-0" />
+          {email}
+        </p>
+      )}
 
       <span className="mt-4 inline-flex items-center rounded-full bg-green-50 px-2.5 py-0.5 text-xs font-semibold text-green-700 dark:bg-green-950/30 dark:text-green-400 animate-in fade-in duration-300">
         Verified Account
@@ -58,7 +64,7 @@ export function ProfileAvatarCard({
       <div className="mt-8 w-full border-t border-zinc-100 pt-6 dark:border-zinc-800">
         <Button
           variant="destructive"
-          onClick={() => signOutMutation.mutate()}
+          onClick={handleSignOut}
           disabled={signOutMutation.isPending}
           className="w-full flex items-center justify-center gap-2 hover:opacity-95 active:scale-98 transition-all cursor-pointer"
         >

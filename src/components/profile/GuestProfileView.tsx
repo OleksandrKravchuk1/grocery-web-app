@@ -8,6 +8,14 @@ import { ROUTES } from "@/constants/routes";
 export function GuestProfileView() {
   const router = useRouter();
 
+  const handleSihnIn = () => {
+    router.push(ROUTES.auth.signIn);
+  }
+
+  const handleSignUp = () => {
+    router.push(ROUTES.auth.signUp);
+  }
+
   return (
     <div className="flex min-h-[calc(100vh-85px)] items-center justify-center bg-zinc-50 px-4 py-12 dark:bg-black font-sans">
       <div className="w-full max-w-md transform rounded-2xl border border-zinc-200 bg-white p-8 shadow-xl transition-all dark:border-zinc-800 dark:bg-zinc-950">
@@ -27,13 +35,13 @@ export function GuestProfileView() {
 
           <div className="mt-8 w-full space-y-3">
             <Button
-              onClick={() => router.push(ROUTES.auth.signIn)}
+              onClick={handleSihnIn}
               className="w-full py-3 h-11 text-base font-semibold"
             >
               Sign In
             </Button>
             <Button
-              onClick={() => router.push(ROUTES.auth.signUp)}
+              onClick={handleSignUp}
               variant="outline"
               className="w-full py-3 h-11 text-base font-semibold"
             >
