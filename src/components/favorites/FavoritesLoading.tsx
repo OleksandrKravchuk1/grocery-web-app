@@ -1,6 +1,6 @@
-import { ProductCardSkeleton } from "@/components/favorites/ProductCardSkeleton";
+import { ProductCardSkeleton } from "@/components/common/ProductCardSkeleton";
 
-const SKELETON_COUNT = 6;
+const SKELETON_COUNT = 5;
 
 export function FavoritesLoading() {
   return (
