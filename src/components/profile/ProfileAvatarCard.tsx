@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import { ROUTES } from "@/constants/routes";
 import { signOut } from "@/services/auth";
+import { getFullName, getProfileInitials } from "@/utils/profile";
 
 interface ProfileAvatarCardProps {
   firstName: string;
@@ -38,8 +39,8 @@ export function ProfileAvatarCard({
     signOutMutation.mutate();
   }
 
-  const initials = `${firstName[0] || ""}${lastName[0] || ""}`.toUpperCase() || "U";
-  const displayName = firstName ? `${firstName} ${lastName}`.trim() : "User Profile";
+  const initials = getProfileInitials(firstName, lastName);
+  const displayName = getFullName(firstName, lastName);
 
   return (
     <div className="flex flex-col items-center rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-950">

@@ -34,6 +34,7 @@ export function ProductCard({ id, image, title, price, rating, isFavorite, onAdd
               className="h-[95%] w-[95%] object-contain transition-transform duration-300 group-hover:scale-105"
               width={100}
               height={100}
+              unoptimized
             />
           </div>
         </div>

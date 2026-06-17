@@ -7,6 +7,8 @@ import { fetchProfile, saveProfile } from "@/services/profile";
 import type { ProfileFormValues } from "@/types/profile";
 import { toFormValues } from "@/utils/profile";
 
+const EMPTY_PROFILE_DEFAULTS = toFormValues();
+
 export function useProfile() {
   const { user } = useAuth();
   const queryClient = useQueryClient();
@@ -15,7 +17,7 @@ export function useProfile() {
     queryKey: QUERY_KEYS.profile(user?.id),
     queryFn: () => {
       if (!user?.id) throw new Error("User not logged in");
-      return fetchProfile(user.id);
+      return fetchProfile();
     },
     enabled: !!user?.id,
     select: toFormValues,
@@ -25,7 +27,7 @@ export function useProfile() {
   const mutation = useMutation({
     mutationFn: (values: ProfileFormValues) => {
       if (!user?.id) throw new Error("User not logged in");
-      return saveProfile(user.id, values);
+      return saveProfile(values);
     },
     onSuccess: () => {
       if (user?.id) {
@@ -37,7 +39,7 @@ export function useProfile() {
   });
 
   return {
-    profileDefaults: query.data ?? toFormValues(),
+    profileDefaults: query.data ?? EMPTY_PROFILE_DEFAULTS,
     isLoading: query.isLoading,
     isError: query.isError,
     isSaving: mutation.isPending,

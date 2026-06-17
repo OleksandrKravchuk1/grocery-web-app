@@ -1,18 +1,10 @@
 import type { LucideIcon } from "lucide-react";
+export type { Profile } from "@/generated/prisma";
 
 export enum Gender {
   Male = "Male",
   Female = "Female",
   Other = "Other",
-}
-
-export interface Profile {
-  id: string;
-  firstName: string;
-  lastName: string | null;
-  phone: string | null;
-  gender: string | null;
-  birthday: Date | null;
 }
 
 export type ProfileFormValues = {
