@@ -26,5 +26,5 @@ export function getProfileInitials(firstName?: string, lastName?: string): strin
 }
 
 export function getFullName(firstName?: string, lastName?: string): string {
-  return `${firstName} ${lastName}`.trim() || "User Profile";
+  return [firstName, lastName].filter(Boolean).join(" ") || "User Profile";
 }

@@ -1,3 +1,5 @@
+"use client";
+
 import { useForm } from "@tanstack/react-form";
 import { useEffect, useState } from "react";
 import { useProfile } from "@/hooks/useProfile";

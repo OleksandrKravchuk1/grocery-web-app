@@ -20,7 +20,7 @@ export const profileFormSchema = z.object({
     .max(20, "Phone number must be at most 20 characters")
     .optional()
     .or(z.literal("")),
-  gender: z.enum(Gender),
+  gender: z.nativeEnum(Gender),
   birthday: z
     .string()
     .refine((date) => {
