@@ -8,7 +8,7 @@ import { ROUTES } from "@/constants/routes";
 export function GuestProfileView() {
   const router = useRouter();
 
-  const handleSihnIn = () => {
+  const handleSignIn = () => {
     router.push(ROUTES.auth.signIn);
   }
 
@@ -35,7 +35,7 @@ export function GuestProfileView() {
 
           <div className="mt-8 w-full space-y-3">
             <Button
-              onClick={handleSihnIn}
+              onClick={handleSignIn}
               className="w-full py-3 h-11 text-base font-semibold"
             >
               Sign In

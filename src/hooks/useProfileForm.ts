@@ -1,8 +1,9 @@
+"use client";
+
 import { useForm } from "@tanstack/react-form";
 import { useEffect, useState } from "react";
 import { useProfile } from "@/hooks/useProfile";
 import { profileFormSchema } from "@/schemas/profile";
-import { Gender } from "@/types/profile";
 import { toFormValues } from "@/utils/profile";
 
 type MessageType = {
