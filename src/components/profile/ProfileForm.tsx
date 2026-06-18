@@ -27,12 +27,14 @@ export function ProfileForm({ form, isSaving }: ProfileFormProps) {
       >
         <div className="grid gap-4 sm:grid-cols-2">
           <form.Field name="firstName">
-            {(field) => (
+            {(field: any) => (
               <ProfileFormField
                 id="first-name"
                 label="First Name"
                 icon={UserIcon}
-                field={field}
+                value={field.state.value}
+                onChange={(v) => field.handleChange(v)}
+                error={field.state.meta.errors[0]?.toString()}
                 placeholder="Name"
                 required
               />
@@ -40,12 +42,14 @@ export function ProfileForm({ form, isSaving }: ProfileFormProps) {
           </form.Field>
 
           <form.Field name="lastName">
-            {(field) => (
+            {(field: any) => (
               <ProfileFormField
                 id="last-name"
                 label="Last Name"
                 icon={UserIcon}
-                field={field}
+                value={field.state.value}
+                onChange={(v) => field.handleChange(v)}
+                error={field.state.meta.errors[0]?.toString()}
                 placeholder="Surname"
               />
             )}
@@ -54,12 +58,14 @@ export function ProfileForm({ form, isSaving }: ProfileFormProps) {
 
         <div className="grid gap-4 sm:grid-cols-2">
           <form.Field name="birthday">
-            {(field: string) => (
+            {(field: any) => (
               <ProfileFormField
                 id="birthday"
                 label="Birthday"
                 icon={CalendarIcon}
-                field={field}
+                value={field.state.value}
+                onChange={(v) => field.handleChange(v)}
+                error={field.state.meta.errors[0]?.toString()}
                 placeholder="YYYY-MM-DD"
                 maxLength={10}
                 onChangeText={formatBirthdayInput}
@@ -68,12 +74,14 @@ export function ProfileForm({ form, isSaving }: ProfileFormProps) {
           </form.Field>
 
           <form.Field name="phone">
-            {(field) => (
+            {(field: any) => (
               <ProfileFormField
                 id="phone-number"
                 label="Phone Number"
                 icon={PhoneIcon}
-                field={field}
+                value={field.state.value}
+                onChange={(v) => field.handleChange(v)}
+                error={field.state.meta.errors[0]?.toString()}
                 placeholder="+380 XX XXX XX XX"
                 type="tel"
               />

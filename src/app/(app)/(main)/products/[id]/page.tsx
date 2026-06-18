@@ -12,7 +12,12 @@ export default async function Page({ params }: Props) {
   if (!isNumberRegex.test(id)) {
     notFound();
   }
+
   const productId = Number(id);
+
+  if (!Number.isSafeInteger(productId) || productId <= 0) {
+    notFound();
+  }
 
   return <ProductPageView productId={productId} />
 }

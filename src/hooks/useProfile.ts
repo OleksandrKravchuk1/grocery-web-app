@@ -15,10 +15,7 @@ export function useProfile() {
 
   const query = useQuery({
     queryKey: QUERY_KEYS.profile(user?.id),
-    queryFn: () => {
-      if (!user?.id) throw new Error("User not logged in");
-      return fetchProfile();
-    },
+    queryFn: () => fetchProfile(),
     enabled: !!user?.id,
     select: toFormValues,
     retry: false,
@@ -30,11 +27,9 @@ export function useProfile() {
       return saveProfile(values);
     },
     onSuccess: () => {
-      if (user?.id) {
-        void queryClient.invalidateQueries({
-          queryKey: QUERY_KEYS.profile(user.id),
-        });
-      }
+      void queryClient.invalidateQueries({
+        queryKey: QUERY_KEYS.profile(user?.id),
+      });
     },
   });
 

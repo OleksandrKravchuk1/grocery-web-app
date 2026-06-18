@@ -19,12 +19,14 @@ export function toFormValues(profile?: DBProfile | null): ProfileFormValues {
 }
 
 export function getProfileInitials(firstName?: string, lastName?: string): string {
-  const firstChar = firstName?.[0] || "";
-  const lastChar = lastName?.[0] || "";
+  const firstChar = firstName?.trim()?.[0] ?? "";
+  const lastChar = lastName?.trim()?.[0] ?? "";
 
   return `${firstChar}${lastChar}`.toUpperCase() || "U";
 }
 
 export function getFullName(firstName?: string, lastName?: string): string {
-  return `${firstName} ${lastName}`.trim() || "User Profile";
+  const normalizedFirstName = firstName?.trim() ?? "";
+  const normalizedLastName = lastName?.trim() ?? "";
+  return `${normalizedFirstName} ${normalizedLastName}`.trim() || "User Profile";
 }

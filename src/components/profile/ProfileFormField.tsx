@@ -7,7 +7,9 @@ export function ProfileFormField({
   id,
   label,
   icon: Icon,
-  field,
+  value,
+  onChange,
+  error,
   placeholder,
   type = "text",
   required,
@@ -28,20 +30,20 @@ export function ProfileFormField({
           id={id}
           type={type}
           maxLength={maxLength}
-          value={field.state.value}
+          value={value}
           onChange={(e) => {
             const rawVal = e.target.value;
             const finalVal = onChangeText ? onChangeText(rawVal) : rawVal;
-            field.handleChange(finalVal);
+            onChange(finalVal);
           }}
           className="pl-10"
           placeholder={placeholder}
           required={required}
         />
       </div>
-      {field.state.meta.errors.length > 0 && (
+      {error && (
         <p className="mt-1 text-xs text-red-600 dark:text-red-400 animate-in fade-in duration-300">
-          {field.state.meta.errors[0]?.toString()}
+          {error}
         </p>
       )}
     </div>

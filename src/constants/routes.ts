@@ -2,19 +2,19 @@ export const ROUTES = {
   home: "/",
   categories: {
     root: "/categories",
-    category: (id: string) => `/categories/${id}`,
+    category: (id: string | number) => `/categories/${id}`,
   },
   favorites: {
     root: "/favorites",
-    favorite: (id: string) => `/favorites/${id}`,
+    favorite: (id: string | number) => `/favorites/${id}`,
   },
   orders: {
     root: "/orders",
-    order: (id: string) => `/orders/${id}`,
+    order: (id: string | number) => `/orders/${id}`,
   },
   products: {
     root: "/products",
-    product: (id: string) => `/products/${id}`,
+    product: (id: string | number) => `/products/${id}`,
   },
   cart: {
     root: "/cart",

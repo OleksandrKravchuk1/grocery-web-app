@@ -7,6 +7,7 @@ import { ProfileForm } from "@/components/profile/ProfileForm";
 import { useAuth } from "@/hooks/useAuth";
 import { useProfileForm } from "@/hooks/useProfileForm";
 import { cn } from "@/lib/utils";
+import { MessageVariant } from "@/types/profile";
 
 export function ProfileView() {
   const { user } = useAuth();
@@ -16,7 +17,7 @@ export function ProfileView() {
     return <GuestProfileView />;
   }
 
-  if (isLoading && user) {
+  if (isLoading) {
     return (
       <div className="flex min-h-[calc(100vh-85px)] items-center justify-center bg-zinc-50 dark:bg-black">
         <Loader2Icon className="h-10 w-10 animate-spin text-green-600 dark:text-green-500" />
@@ -25,7 +26,7 @@ export function ProfileView() {
   }
 
   const handleSignOutError = (errorText: string) => {
-    setMessage({ type: "error", text: errorText });
+    setMessage({ type: MessageVariant.Error, text: errorText });
   };
 
   return (
@@ -39,12 +40,12 @@ export function ProfileView() {
           <div
             className={cn(
               "mb-6 flex items-start gap-3 rounded-lg border p-4 text-sm animate-in fade-in slide-in-from-top-2 duration-300",
-              message.type === "success"
+              message.type === MessageVariant.Success
                 ? "border-green-250 bg-green-50 text-green-800 dark:border-green-900/50 dark:bg-green-950/20 dark:text-green-400"
                 : "border-red-200 bg-red-50 text-red-800 dark:border-red-900/50 dark:bg-red-950/20 dark:text-red-400",
             )}
           >
-            {message.type === "success" ? (
+            {message.type === MessageVariant.Success ? (
               <CheckCircle2Icon className="h-5 w-5 shrink-0 text-green-600 dark:text-green-500" />
             ) : (
               <AlertCircleIcon className="h-5 w-5 shrink-0 text-red-600 dark:text-red-500" />

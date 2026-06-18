@@ -2,17 +2,13 @@ import { useForm } from "@tanstack/react-form";
 import { useEffect, useState } from "react";
 import { useProfile } from "@/hooks/useProfile";
 import { profileFormSchema } from "@/schemas/profile";
-import { Gender } from "@/types/profile";
 import { toFormValues } from "@/utils/profile";
 
-type MessageType = {
-  type: "success" | "error";
-  text: string;
-}
+import { AppMessage, MessageVariant } from "@/types/profile";
 
 export function useProfileForm() {
   const { profileDefaults, isLoading, isSaving, saveProfile } = useProfile();
-  const [message, setMessage] = useState<MessageType | null>(null);
+  const [message, setMessage] = useState<AppMessage | null>(null);
 
   const form = useForm({
     defaultValues: toFormValues(profileDefaults),
@@ -28,12 +24,12 @@ export function useProfileForm() {
       try {
         await saveProfile(value);
         setMessage({
-          type: "success",
+          type: MessageVariant.Success,
           text: "Profile details updated successfully!",
         });
       } catch (err) {
         setMessage({
-          type: "error",
+          type: MessageVariant.Error,
           text:
             err instanceof Error
               ? err.message

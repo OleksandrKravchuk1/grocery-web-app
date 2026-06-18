@@ -1,4 +1,4 @@
-import { Star } from 'lucide-react';
+import { StarIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FavoriteButton } from '@/components/ui/FavoriteButton';
@@ -25,7 +25,7 @@ export function ProductCard({ id, image, title, price, rating, isFavorite, onAdd
         />
       </div>
 
-      <Link href={ROUTES.products.product(id.toString())} className="group block">
+      <Link href={ROUTES.products.product(id)} className="group block">
         <div className="relative mb-4">
           <div className="flex h-32.5 items-center justify-center rounded-[14px] bg-gray-100 dark:bg-zinc-900 overflow-hidden">
             <Image
@@ -44,7 +44,7 @@ export function ProductCard({ id, image, title, price, rating, isFavorite, onAdd
             {title}
           </h3>
           <div className="flex items-center gap-2">
-            <Star className="fill-[#F5B300] text-[#F5B300]" size={20} />
+            <StarIcon className="fill-[#F5B300] text-[#F5B300]" size={20} />
             <span className="text-base font-semibold text-black dark:text-zinc-100">
               {rating.toFixed(1)}
             </span>

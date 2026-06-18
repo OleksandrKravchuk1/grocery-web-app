@@ -7,6 +7,19 @@ export enum Gender {
   Other = "Other",
 }
 
+export enum MessageVariant {
+  Success = "success",
+  Error = "error",
+  Warning = "warning",
+  Info = "info",
+}
+
+export type AppMessage = {
+  type: MessageVariant;
+  text: string;
+};
+
+
 export type ProfileFormValues = {
   firstName: string;
   lastName: string;
@@ -19,7 +32,9 @@ export type ProfileFormFieldProps = {
   id: string;
   label: string;
   icon: LucideIcon;
-  field: any;
+  value: string;
+  onChange: (val: string) => void;
+  error?: string;
   placeholder: string;
   type?: string;
   required?: boolean;

@@ -1,10 +1,35 @@
 import { cn } from "@/lib/utils";
 import { Gender } from "@/types/profile";
+import { FieldApi } from "@tanstack/react-form";
 
 const genderOptions = Object.values(Gender);
 
 interface GenderSelectProps {
-  field: any;
+  field: FieldApi<
+    any,
+    any,
+    any,
+    any,
+    any,
+    any,
+    any,
+    any,
+    any,
+    any,
+    any,
+    any,
+    any,
+    any,
+    any,
+    any,
+    any,
+    any,
+    any,
+    any,
+    any,
+    any,
+    any
+  >;
 }
 
 export function GenderSelect({ field }: GenderSelectProps) {
