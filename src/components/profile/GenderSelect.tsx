@@ -1,38 +1,15 @@
 import { cn } from "@/lib/utils";
 import { Gender } from "@/types/profile";
-import { FieldApi } from "@tanstack/react-form";
 
 const genderOptions = Object.values(Gender);
 
 interface GenderSelectProps {
-  field: FieldApi<
-    any,
-    any,
-    any,
-    any,
-    any,
-    any,
-    any,
-    any,
-    any,
-    any,
-    any,
-    any,
-    any,
-    any,
-    any,
-    any,
-    any,
-    any,
-    any,
-    any,
-    any,
-    any,
-    any
-  >;
+  value: string;
+  onChange: (value: Gender) => void;
+  error?: string;
 }
 
-export function GenderSelect({ field }: GenderSelectProps) {
+export function GenderSelect({ value, onChange, error }: GenderSelectProps) {
   return (
     <div className="space-y-2 pt-2">
       <span className="text-xs font-semibold text-zinc-500 dark:text-zinc-400 block">
@@ -40,12 +17,12 @@ export function GenderSelect({ field }: GenderSelectProps) {
       </span>
       <div className="flex gap-2">
         {genderOptions.map((item) => {
-          const selected = field.state.value === item;
+          const selected = value === item;
           return (
             <button
               key={item}
               type="button"
-              onClick={() => field.handleChange(item)}
+              onClick={() => onChange(item as Gender)}
               className={cn(
                 "flex-1 py-2.5 rounded-xl border font-semibold transition-all duration-200 text-sm active:scale-98 cursor-pointer",
                 selected
@@ -58,9 +35,9 @@ export function GenderSelect({ field }: GenderSelectProps) {
           );
         })}
       </div>
-      {field.state.meta.errors.length > 0 && (
+      {error && (
         <p className="mt-1 text-xs text-red-600 dark:text-red-400">
-          {field.state.meta.errors[0]?.toString()}
+          {error}
         </p>
       )}
     </div>

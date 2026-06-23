@@ -2,7 +2,7 @@ export const ROUTES = {
   home: "/",
   categories: {
     root: "/categories",
-    category: (id: string | number) => `/categories/${id}`,
+    category: (id: number) => `/categories/${id}`,
   },
   favorites: {
     root: "/favorites",

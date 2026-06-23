@@ -27,7 +27,7 @@ export function ProfileForm({ form, isSaving }: ProfileFormProps) {
       >
         <div className="grid gap-4 sm:grid-cols-2">
           <form.Field name="firstName">
-            {(field: any) => (
+            {(field) => (
               <ProfileFormField
                 id="first-name"
                 label="First Name"
@@ -42,7 +42,7 @@ export function ProfileForm({ form, isSaving }: ProfileFormProps) {
           </form.Field>
 
           <form.Field name="lastName">
-            {(field: any) => (
+            {(field) => (
               <ProfileFormField
                 id="last-name"
                 label="Last Name"
@@ -58,7 +58,7 @@ export function ProfileForm({ form, isSaving }: ProfileFormProps) {
 
         <div className="grid gap-4 sm:grid-cols-2">
           <form.Field name="birthday">
-            {(field: any) => (
+            {(field) => (
               <ProfileFormField
                 id="birthday"
                 label="Birthday"
@@ -74,7 +74,7 @@ export function ProfileForm({ form, isSaving }: ProfileFormProps) {
           </form.Field>
 
           <form.Field name="phone">
-            {(field: any) => (
+            {(field) => (
               <ProfileFormField
                 id="phone-number"
                 label="Phone Number"
@@ -90,7 +90,13 @@ export function ProfileForm({ form, isSaving }: ProfileFormProps) {
         </div>
 
         <form.Field name="gender">
-          {(field: any) => <GenderSelect field={field} />}
+          {(field) => (
+            <GenderSelect
+              value={field.state.value}
+              onChange={(v) => field.handleChange(v)}
+              error={field.state.meta.errors[0]?.toString()}
+            />
+          )}
         </form.Field>
 
         <div className="pt-4">
