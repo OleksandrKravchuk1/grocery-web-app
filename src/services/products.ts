@@ -22,6 +22,13 @@ export async function getProductsByCategoryId(categoryId: number) {
   });
 }
 
+export async function getProductById(id: number) {
+  return prisma.product.findUnique({
+    where: { id },
+    include: { image: true }
+  });
+}
+
 export async function getProductsByIds(ids: number[]) {
   if (ids.length === 0) return [];
 
