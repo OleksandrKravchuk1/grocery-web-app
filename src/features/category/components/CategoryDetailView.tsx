@@ -59,7 +59,7 @@ export function CategoryDetailView({
             <div className="flex items-center gap-3">
               <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-green-100 text-green-600 dark:bg-green-950/40 dark:text-green-400 shadow-xs">
                 {initialCategory?.icon &&
-                initialCategory.icon.includes("http") ? (
+                  initialCategory.icon.includes("http") ? (
                   <img
                     src={initialCategory.icon}
                     alt={title}
