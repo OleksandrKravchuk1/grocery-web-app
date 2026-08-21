@@ -9,10 +9,10 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Button } from "@/components/ui/Button";
 import Search from "@/components/common/Search";
-import { ROUTES } from "@/constants/routes";
+import { Button } from "@/components/ui/Button";
 import { navbarLinks } from "@/constants/navbar.constants";
+import { ROUTES } from "@/constants/routes";
 import useOpenState from "@/hooks/useOpenState";
 
 const linkBaseClass = "block rounded-md px-3 py-2 transition-colors";

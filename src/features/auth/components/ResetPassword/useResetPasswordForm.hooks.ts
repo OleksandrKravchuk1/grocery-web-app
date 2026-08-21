@@ -1,8 +1,8 @@
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { ROUTES } from "@/constants/routes";
-import { FormErrors } from "@/constants/form-errors";
 import { useForm } from "@tanstack/react-form";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { FormErrors } from "@/constants/form-errors";
+import { ROUTES } from "@/constants/routes";
 import { resetPasswordSchema } from "@/features/auth/schemas/auth";
 import { resetPassword } from "@/features/auth/services/auth";
 
@@ -34,7 +34,11 @@ export function useResetPasswordForm() {
           router.push(ROUTES.auth.signIn);
         }, 2000);
       } catch (err) {
-        setError(err instanceof Error ? err.message : "Failed to update password, try again later");
+        setError(
+          err instanceof Error
+            ? err.message
+            : "Failed to update password, try again later",
+        );
       }
     },
   });

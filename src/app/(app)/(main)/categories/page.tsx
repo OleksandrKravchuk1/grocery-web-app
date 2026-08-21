@@ -1,7 +1,5 @@
-export default function Page() {
-    return (
-        <div className="p-8">
-            <h1>Categories</h1>
-        </div>
-    );
-};
+﻿import CategoryPageView from "@/features/category/components/CategoryPageView";
+
+export default function CategoriesPage() {
+  return <CategoryPageView />;
+}

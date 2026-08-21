@@ -12,7 +12,7 @@ export async function createClient() {
       "Missing NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY",
     );
   }
-  
+
   return createServerClient(supabaseUrl, supabaseKey, {
     cookies: {
       getAll() {

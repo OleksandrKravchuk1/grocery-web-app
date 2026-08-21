@@ -41,4 +41,4 @@ export type DBProfile = {
   phone?: string | null;
   gender?: string | null;
   birthday?: string | null;
-}
+};

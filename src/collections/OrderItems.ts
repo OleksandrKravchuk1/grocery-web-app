@@ -1,7 +1,7 @@
-import type { CollectionConfig } from 'payload'
+import type { CollectionConfig } from "payload";
 
 export const OrderItems: CollectionConfig = {
-  slug: 'order-items',
+  slug: "order-items",
   access: {
     read: ({ req: { user } }) => Boolean(user),
     create: ({ req: { user } }) => Boolean(user),
@@ -10,23 +10,23 @@ export const OrderItems: CollectionConfig = {
   },
   fields: [
     {
-      name: 'order',
-      type: 'relationship',
-      relationTo: 'orders',
+      name: "order",
+      type: "relationship",
+      relationTo: "orders",
       required: true,
     },
     {
-      name: 'product',
-      type: 'relationship',
-      relationTo: 'products',
+      name: "product",
+      type: "relationship",
+      relationTo: "products",
     },
     {
-      name: 'quantity',
-      type: 'number',
+      name: "quantity",
+      type: "number",
     },
     {
-      name: 'price',
-      type: 'number',
+      name: "price",
+      type: "number",
     },
   ],
-}
+};

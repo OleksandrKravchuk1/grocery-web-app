@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { getProductsByCategoryId } from "@/features/product/services/products";
 import { QUERY_KEYS } from "@/constants/queryKeys";
+import { getProductsByCategoryId } from "@/features/product/services/products";
 
 export function useProductsByCategoryId(categoryId: number) {
   const query = useQuery({

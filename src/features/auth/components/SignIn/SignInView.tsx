@@ -1,12 +1,12 @@
 "use client";
 
+import { Loader2Icon } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { PasswordInput } from "@/components/ui/PasswordInput";
 import { ROUTES } from "@/constants/routes";
 import { useSignInForm } from "@/features/auth/components/SignIn/useSignIn.hooks";
-import { Loader2Icon } from "lucide-react";
 
 export default function SignInPage() {
   const { form, error } = useSignInForm();

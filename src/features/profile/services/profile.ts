@@ -1,7 +1,7 @@
 "use server";
 
-import { prisma } from "@/lib/prisma";
 import type { ProfileFormValues } from "@/features/profile/types/profile";
+import { prisma } from "@/lib/prisma";
 
 export async function fetchProfile(userId: string) {
   if (!userId) return null;

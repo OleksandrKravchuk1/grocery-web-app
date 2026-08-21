@@ -1,9 +1,9 @@
 "use client";
 
-import { useCategories } from "@/features/category/hooks/useCategory";
-import { CategorySection } from "@/features/category/components/CategorySection";
 import { AlertCircleIcon, Loader2Icon, RefreshCwIcon } from "lucide-react";
 import { Button } from "@/components/ui/Button";
+import { CategorySection } from "@/features/category/components/CategorySection";
+import { useCategories } from "@/features/category/hooks/useCategory";
 
 export function HomePageView() {
   const { categories, isError, isLoading, refetch } = useCategories();
@@ -13,7 +13,7 @@ export function HomePageView() {
       <div className="flex items-center justify-center h-screen">
         <Loader2Icon className="animate-spin h-10 w-10 text-blue-500 text-green-500" />
       </div>
-    )
+    );
   }
 
   if (isError) {
@@ -31,7 +31,8 @@ export function HomePageView() {
               Failed to load categories
             </h2>
             <p className="text-sm text-zinc-500 dark:text-zinc-400">
-              We couldn&apos;t load the homepage content. Please check your connection and try again.
+              We couldn&apos;t load the homepage content. Please check your
+              connection and try again.
             </p>
           </div>
 
@@ -48,7 +49,6 @@ export function HomePageView() {
       </main>
     );
   }
-
 
   return (
     <main className="min-h-screen flex flex-col items-center bg-zinc-50 font-sans dark:bg-black pb-10">

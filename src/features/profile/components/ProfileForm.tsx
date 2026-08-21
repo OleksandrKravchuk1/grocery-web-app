@@ -1,13 +1,13 @@
 "use client";
 
 import { CalendarIcon, Loader2Icon, PhoneIcon, UserIcon } from "lucide-react";
-import { ProfileFormField } from "@/features/profile/components/ProfileFormField";
 import { Button } from "@/components/ui/Button";
-import { cn } from "@/lib/utils";
-import { formatBirthdayInput } from "@/features/profile/utils/formatBithdayInput";
+import { ProfileFormField } from "@/features/profile/components/ProfileFormField";
 import { Gender } from "@/features/profile/types/profile";
+import { formatBirthdayInput } from "@/features/profile/utils/formatBithdayInput";
+import { cn } from "@/lib/utils";
 
-const genderOptions = Object.values(Gender)
+const genderOptions = Object.values(Gender);
 
 interface ProfileFormProps {
   form: any;

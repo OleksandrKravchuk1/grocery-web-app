@@ -3,7 +3,6 @@ import type { InputHTMLAttributes, Ref } from "react";
 
 import { cn } from "@/lib/utils";
 
-
 const inputVariants = cva(
   "flex w-full rounded-md border border-zinc-300 bg-white px-3 py-3 text-sm text-zinc-950 outline-none transition-colors placeholder:text-zinc-400 focus-visible:border-transparent focus-visible:ring-0 disabled:cursor-not-allowed disabled:opacity-60 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-50 dark:placeholder:text-zinc-500",
   {
@@ -22,11 +21,17 @@ const inputVariants = cva(
 
 export interface InputProps
   extends InputHTMLAttributes<HTMLInputElement>,
-  VariantProps<typeof inputVariants> {
+    VariantProps<typeof inputVariants> {
   ref?: Ref<HTMLInputElement>;
 }
 
-export const Input = ({ className, variant, type = "text", ref, ...props }: InputProps) => (
+export const Input = ({
+  className,
+  variant,
+  type = "text",
+  ref,
+  ...props
+}: InputProps) => (
   <input
     ref={ref}
     type={type}

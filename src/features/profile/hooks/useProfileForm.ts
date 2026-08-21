@@ -2,13 +2,12 @@ import { useForm } from "@tanstack/react-form";
 import { useEffect, useState } from "react";
 import { useProfile } from "@/features/profile/hooks/useProfile";
 import { profileFormSchema } from "@/features/profile/schemas/profile";
-import { Gender } from "@/features/profile/types/profile";
 import { toFormValues } from "@/features/profile/utils/profile";
 
 type MessageType = {
   type: "success" | "error";
   text: string;
-}
+};
 
 export function useProfileForm() {
   const { profileDefaults, isLoading, isSaving, saveProfile } = useProfile();

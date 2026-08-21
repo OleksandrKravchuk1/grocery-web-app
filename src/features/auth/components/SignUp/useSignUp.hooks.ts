@@ -1,9 +1,9 @@
-import { useRouter } from "next/navigation";
-import { ROUTES } from "@/constants/routes";
-import { signUpWithEmail } from "@/features/auth/services/auth";
 import { useForm } from "@tanstack/react-form";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { ROUTES } from "@/constants/routes";
 import { signUpSchema } from "@/features/auth/schemas/auth";
+import { signUpWithEmail } from "@/features/auth/services/auth";
 
 export function useSignUpForm() {
   const router = useRouter();
@@ -37,7 +37,11 @@ export function useSignUpForm() {
         router.push(ROUTES.home);
         router.refresh();
       } catch (err) {
-        setError(err instanceof Error ? err.message : "Failed to sign up, try again later");
+        setError(
+          err instanceof Error
+            ? err.message
+            : "Failed to sign up, try again later",
+        );
       }
     },
   });

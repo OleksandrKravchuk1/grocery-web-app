@@ -1,7 +1,7 @@
-import type { CollectionConfig } from 'payload'
+import type { CollectionConfig } from "payload";
 
 export const Media: CollectionConfig = {
-  slug: 'media',
+  slug: "media",
   access: {
     read: () => true,
     create: ({ req: { user } }) => Boolean(user),
@@ -9,12 +9,12 @@ export const Media: CollectionConfig = {
     delete: ({ req: { user } }) => Boolean(user),
   },
   upload: {
-    mimeTypes: ['image/*'],
+    mimeTypes: ["image/*"],
   },
   fields: [
     {
-      name: 'alt',
-      type: 'text',
+      name: "alt",
+      type: "text",
     },
   ],
-}
+};

@@ -1,7 +1,7 @@
-import type { CollectionConfig } from 'payload'
+import type { CollectionConfig } from "payload";
 
 export const Categories: CollectionConfig = {
-  slug: 'categories',
+  slug: "categories",
   access: {
     read: () => true,
     create: ({ req: { user } }) => Boolean(user),
@@ -9,18 +9,18 @@ export const Categories: CollectionConfig = {
     delete: ({ req: { user } }) => Boolean(user),
   },
   admin: {
-    useAsTitle: 'name',
+    useAsTitle: "name",
   },
   fields: [
     {
-      name: 'name',
-      type: 'text',
+      name: "name",
+      type: "text",
       required: true,
     },
     {
-      name: 'icon',
-      type: 'text',
+      name: "icon",
+      type: "text",
       required: true,
     },
   ],
-}
+};

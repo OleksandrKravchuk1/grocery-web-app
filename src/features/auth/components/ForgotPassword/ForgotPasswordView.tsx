@@ -1,7 +1,7 @@
 "use client";
 
-import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
+import { Input } from "@/components/ui/Input";
 import { useForgotPasswordForm } from "@/features/auth/components/ForgotPassword/useForgotPasswordForm.hooks";
 
 export function ForgotPasswordView() {
@@ -56,9 +56,7 @@ export function ForgotPasswordView() {
               className="w-full"
             >
               {isSubmitting ? (
-                <span className="flex items-center gap-2">
-                  Sending...
-                </span>
+                <span className="flex items-center gap-2">Sending...</span>
               ) : (
                 "Send Link"
               )}
@@ -67,6 +65,5 @@ export function ForgotPasswordView() {
         </>
       )}
     </div>
-
   );
 }

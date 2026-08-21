@@ -1,16 +1,20 @@
 "use client";
 
+import { useStore } from "@tanstack/react-form";
 import { AlertCircleIcon, CheckCircle2Icon, Loader2Icon } from "lucide-react";
+import { useAuth } from "@/features/auth/hooks/useAuth";
 import { GuestProfileView } from "@/features/profile/components/GuestProfileView";
 import { ProfileAvatarCard } from "@/features/profile/components/ProfileAvatarCard";
 import { ProfileForm } from "@/features/profile/components/ProfileForm";
-import { useAuth } from "@/features/auth/hooks/useAuth";
+
 import { useProfileForm } from "@/features/profile/hooks/useProfileForm";
 import { cn } from "@/lib/utils";
 
 export function ProfileView() {
   const { user } = useAuth();
   const { form, isLoading, isSaving, message, setMessage } = useProfileForm();
+  const firstName = useStore(form.store, (state) => state.values.firstName);
+  const lastName = useStore(form.store, (state) => state.values.lastName);
 
   if (!user) {
     return <GuestProfileView />;
@@ -55,8 +59,8 @@ export function ProfileView() {
 
         <div className="grid gap-6 md:grid-cols-3">
           <ProfileAvatarCard
-            firstName={form.state.values.firstName}
-            lastName={form.state.values.lastName}
+            firstName={firstName}
+            lastName={lastName}
             email={user.email || ""}
             onSignOutError={handleSignOutError}
           />

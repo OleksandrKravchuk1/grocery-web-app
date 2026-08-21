@@ -1,49 +1,41 @@
-"use client";
+﻿"use client";
 
 import { useQueryClient } from "@tanstack/react-query";
 import { HeartIcon } from "lucide-react";
-import { ProductCard } from "@/features/product/components/ProductCard";
+import { PageHeader } from "@/components/common/PageHeader";
+import { QUERY_KEYS } from "@/constants/queryKeys";
 import { useFavoriteProductsData } from "@/features/favorites/hooks/useFavoriteProductsData";
+import { ProductCard } from "@/features/product/components/ProductCard";
 import { FavoritesEmpty } from "./FavoritesEmpty";
 import { FavoritesError } from "./FavoritesError";
 import { FavoritesLoading } from "./FavoritesLoading";
-import { QUERY_KEYS } from "@/constants/queryKeys";
 
 export function FavoritePageView() {
   const queryClient = useQueryClient();
-  const {
-    products,
-    favoriteIds,
-    toggleFavorite,
-    isEmpty,
-    isError,
-    isLoading,
-  } = useFavoriteProductsData();
+  const { products, favoriteIds, toggleFavorite, isEmpty, isError, isLoading } =
+    useFavoriteProductsData();
 
   const handleRetry = () => {
     queryClient.invalidateQueries({ queryKey: QUERY_KEYS.favoriteProducts() });
-    queryClient.invalidateQueries({ queryKey: QUERY_KEYS.favoriteProductsData() });
+    queryClient.invalidateQueries({
+      queryKey: QUERY_KEYS.favoriteProductsData(),
+    });
   };
 
+  const description =
+    !isLoading && !isError && !isEmpty
+      ? `${favoriteIds.length} ${favoriteIds.length === 1 ? "item" : "items"} saved`
+      : undefined;
+
   return (
-    <main className="min-h-screen bg-zinc-50 font-sans dark:bg-black">
-      <div className="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
-        <div className="mb-8 flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-pink-100 dark:bg-pink-950/40">
-            <HeartIcon className="h-5 w-5 fill-pink-500 text-pink-500" />
-          </div>
-          <div>
-            <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">
-              My Favorites
-            </h1>
-            {!isLoading && !isError && !isEmpty && (
-              <p className="text-sm text-zinc-500 dark:text-zinc-400">
-                {favoriteIds.length}{" "}
-                {favoriteIds.length === 1 ? "item" : "items"} saved
-              </p>
-            )}
-          </div>
-        </div>
+    <div className="min-h-screen bg-zinc-50 px-4 py-8 font-sans dark:bg-black md:px-8 md:py-12">
+      <div className="mx-auto max-w-6xl animate-in fade-in duration-500">
+        <PageHeader
+          title="My Favorites"
+          description={description}
+          icon={<HeartIcon className="h-5 w-5 fill-pink-500 text-pink-500" />}
+          iconClassName="bg-pink-100 dark:bg-pink-950/40"
+        />
 
         {isLoading && <FavoritesLoading />}
 
@@ -71,6 +63,6 @@ export function FavoritePageView() {
           </div>
         )}
       </div>
-    </main>
+    </div>
   );
 }
