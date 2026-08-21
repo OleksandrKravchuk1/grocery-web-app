@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import type { PropsWithChildren } from "react";
 import { ROUTES } from "@/constants/routes";
-import { getCurrentUser } from "@/services/auth.server";
+import { getCurrentUser } from "@/features/auth/services/auth.server";
 
 export default async function AuthLayout({ children }: PropsWithChildren) {
   const user = await getCurrentUser();

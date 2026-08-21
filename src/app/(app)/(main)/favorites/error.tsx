@@ -1,6 +1,6 @@
 "use client";
 
-import { FavoritesError } from "@/components/favorites/FavoritesError";
+import { FavoritesError } from "@/features/favorites/components/FavoritesError";
 
 type Props = {
   error: Error & { digest?: string };

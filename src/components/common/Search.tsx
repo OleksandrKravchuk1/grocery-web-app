@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/Input";
 import { ROUTES } from "@/constants/routes";
 import useDebounce from "@/hooks/useDebounce";
 import useOpenState from "@/hooks/useOpenState";
-import useProductsSearch from "@/hooks/useProductsSearch";
+import useProductsSearch from "@/features/product/hooks/useProductsSearch";
 
 const Search = () => {
   const [searchValue, setSearchValue] = useState("");
