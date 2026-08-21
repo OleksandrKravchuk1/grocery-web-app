@@ -1,7 +1,7 @@
-import type { CollectionConfig } from 'payload'
+import type { CollectionConfig } from "payload";
 
 export const Favourites: CollectionConfig = {
-  slug: 'favourites',
+  slug: "favourites",
   access: {
     read: ({ req: { user } }) => Boolean(user),
     create: ({ req: { user } }) => Boolean(user),
@@ -10,14 +10,14 @@ export const Favourites: CollectionConfig = {
   },
   fields: [
     {
-      name: 'userId',
-      type: 'text',
+      name: "userId",
+      type: "text",
       required: true,
     },
     {
-      name: 'product',
-      type: 'relationship',
-      relationTo: 'products',
+      name: "product",
+      type: "relationship",
+      relationTo: "products",
     },
   ],
-}
+};

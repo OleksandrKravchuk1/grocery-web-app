@@ -1,9 +1,13 @@
-'use client';
+"use client";
 
-import { useAuth } from "@/features/auth/hooks/useAuth";
-import { getFavorites, addFavorite, deleteFavorite } from "@/features/favorites/services/favorites";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { QUERY_KEYS } from "@/constants/queryKeys";
+import { useAuth } from "@/features/auth/hooks/useAuth";
+import {
+  addFavorite,
+  deleteFavorite,
+  getFavorites,
+} from "@/features/favorites/services/favorites";
 
 export function useFavoriteProducts() {
   const { user } = useAuth();

@@ -5,9 +5,9 @@ import Link from "next/link";
 import { useState } from "react";
 import { Input } from "@/components/ui/Input";
 import { ROUTES } from "@/constants/routes";
+import useProductsSearch from "@/features/product/hooks/useProductsSearch";
 import useDebounce from "@/hooks/useDebounce";
 import useOpenState from "@/hooks/useOpenState";
-import useProductsSearch from "@/features/product/hooks/useProductsSearch";
 
 const Search = () => {
   const [searchValue, setSearchValue] = useState("");

@@ -1,7 +1,7 @@
-import { useProductsByCategoryId } from "@/features/product/hooks/useProductsByCategoryId";
-import { ProductCard } from "./ProductCard";
 import { useFavoriteProducts } from "@/features/favorites/hooks/useFavoriteProducts";
 import { ProductCardSkeleton } from "@/features/product/components/ProductCardSkeleton";
+import { useProductsByCategoryId } from "@/features/product/hooks/useProductsByCategoryId";
+import { ProductCard } from "./ProductCard";
 
 type Props = {
   categoryId: number;
@@ -10,9 +10,9 @@ type Props = {
 const SKELETON_COUNT = 6;
 
 export function ProductList({ categoryId }: Props) {
-  const { products, error, isError, isLoading } = useProductsByCategoryId(categoryId);
+  const { products, error, isError, isLoading } =
+    useProductsByCategoryId(categoryId);
   const { favoriteIds, toggleFavorite } = useFavoriteProducts();
-
 
   if (isLoading) {
     return (
@@ -38,7 +38,7 @@ export function ProductList({ categoryId }: Props) {
         <div key={product.id} className="min-w-44 shrink-0 snap-start">
           <ProductCard
             id={product.id}
-            image={product.image?.url ?? ''}
+            image={product.image?.url ?? ""}
             title={product.title}
             price={typeof product.price === "number" ? product.price : 0}
             rating={product.rating ?? 0}

@@ -11,7 +11,7 @@ const prettifySupabseError = (error: unknown) => {
   }
 
   return new Error("Sign in failed");
-}
+};
 
 export const signInWithEmail = async ({ email, password }: AuthOptions) => {
   const { data, error } = await supabase.auth.signInWithPassword({
@@ -52,7 +52,9 @@ export const forgotPassword = async (email: string, redirectTo?: string) => {
 };
 
 export const resetPassword = async (newPassword: string) => {
-  const { data, error } = await supabase.auth.updateUser({ password: newPassword });
+  const { data, error } = await supabase.auth.updateUser({
+    password: newPassword,
+  });
 
   if (error) {
     throw prettifySupabseError(error);

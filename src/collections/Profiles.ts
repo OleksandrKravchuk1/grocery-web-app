@@ -1,7 +1,7 @@
-import type { CollectionConfig } from 'payload'
+import type { CollectionConfig } from "payload";
 
 export const Profiles: CollectionConfig = {
-  slug: 'profiles',
+  slug: "profiles",
   access: {
     read: ({ req: { user } }) => Boolean(user),
     create: ({ req: { user } }) => Boolean(user),
@@ -9,32 +9,32 @@ export const Profiles: CollectionConfig = {
     delete: ({ req: { user } }) => Boolean(user),
   },
   admin: {
-    useAsTitle: 'firstName',
+    useAsTitle: "firstName",
   },
   fields: [
     {
-      name: 'id',
-      type: 'text',
+      name: "id",
+      type: "text",
     },
     {
-      name: 'firstName',
-      type: 'text',
+      name: "firstName",
+      type: "text",
     },
     {
-      name: 'lastName',
-      type: 'text',
+      name: "lastName",
+      type: "text",
     },
     {
-      name: 'phone',
-      type: 'text',
+      name: "phone",
+      type: "text",
     },
     {
-      name: 'gender',
-      type: 'text',
+      name: "gender",
+      type: "text",
     },
     {
-      name: 'birthday',
-      type: 'date',
+      name: "birthday",
+      type: "date",
     },
   ],
-}
+};

@@ -1,16 +1,23 @@
-import configPromise from '@payload-config'
-import { RootPage } from '@payloadcms/next/views'
-import { importMap } from '../importMap'
+import configPromise from "@payload-config";
+import { RootPage } from "@payloadcms/next/views";
+import { importMap } from "../importMap";
 
 type Args = {
   params: Promise<{
-    segments: string[]
-  }>
+    segments: string[];
+  }>;
   searchParams: Promise<{
-    [key: string]: string | string[]
-  }>
-}
+    [key: string]: string | string[];
+  }>;
+};
 
 export default async function Page({ params, searchParams }: Args) {
-  return <RootPage config={configPromise} importMap={importMap} params={params} searchParams={searchParams} />
+  return (
+    <RootPage
+      config={configPromise}
+      importMap={importMap}
+      params={params}
+      searchParams={searchParams}
+    />
+  );
 }

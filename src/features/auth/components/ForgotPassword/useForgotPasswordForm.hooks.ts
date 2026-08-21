@@ -1,5 +1,5 @@
-import { useState } from "react";
 import { useForm } from "@tanstack/react-form";
+import { useState } from "react";
 import { FormErrors } from "@/constants/form-errors";
 import { forgotPasswordSchema } from "@/features/auth/schemas/auth";
 import { forgotPassword } from "@/features/auth/services/auth";
@@ -22,10 +22,17 @@ export function useForgotPasswordForm() {
       setError(null);
       setSuccess(false);
       try {
-        await forgotPassword(value.email, `${window.location.origin}/reset-password`);
+        await forgotPassword(
+          value.email,
+          `${window.location.origin}/reset-password`,
+        );
         setSuccess(true);
       } catch (err) {
-        setError(err instanceof Error ? err.message : "Failed to send reset link, try again later");
+        setError(
+          err instanceof Error
+            ? err.message
+            : "Failed to send reset link, try again later",
+        );
       }
     },
   });

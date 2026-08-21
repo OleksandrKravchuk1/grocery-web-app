@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { getProductsFn } from "@/features/product/services/products";
 import { QUERY_KEYS } from "@/constants/queryKeys";
+import { getProductsFn } from "@/features/product/services/products";
 
 interface IUseProductsSearchOptions {
   search: string;

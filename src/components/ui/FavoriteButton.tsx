@@ -1,4 +1,4 @@
-import { Heart } from 'lucide-react';
+import { Heart } from "lucide-react";
 
 type Props = {
   isFavorite: boolean;
@@ -6,7 +6,7 @@ type Props = {
   className?: string;
 };
 
-export function FavoriteButton({ isFavorite, onClick, className = '' }: Props) {
+export function FavoriteButton({ isFavorite, onClick, className = "" }: Props) {
   return (
     <button
       type="button"
@@ -15,7 +15,11 @@ export function FavoriteButton({ isFavorite, onClick, className = '' }: Props) {
       className={`flex h-9.5 w-9.5 items-center justify-center rounded-full bg-white shadow-md hover:bg-gray-50 dark:bg-zinc-900 dark:hover:bg-zinc-800 ${className}`.trim()}
     >
       <Heart
-        className={isFavorite ? "fill-red-500 text-red-500" : "text-black dark:text-zinc-100"}
+        className={
+          isFavorite
+            ? "fill-red-500 text-red-500"
+            : "text-black dark:text-zinc-100"
+        }
         size={20}
       />
     </button>

@@ -10,11 +10,11 @@ export function GuestProfileView() {
 
   const handleSihnIn = () => {
     router.push(ROUTES.auth.signIn);
-  }
+  };
 
   const handleSignUp = () => {
     router.push(ROUTES.auth.signUp);
-  }
+  };
 
   return (
     <div className="flex min-h-[calc(100vh-85px)] items-center justify-center bg-zinc-50 px-4 py-12 dark:bg-black font-sans">

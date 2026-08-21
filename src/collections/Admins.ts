@@ -1,16 +1,16 @@
-import type { CollectionConfig } from 'payload'
+import type { CollectionConfig } from "payload";
 
 export const Admins: CollectionConfig = {
-  slug: 'admins',
+  slug: "admins",
   auth: true, // This enables Payload's built-in authentication for this collection
   admin: {
-    useAsTitle: 'email',
+    useAsTitle: "email",
   },
   fields: [
     // Email and password fields are automatically added by auth: true
     {
-      name: 'name',
-      type: 'text',
+      name: "name",
+      type: "text",
     },
   ],
-}
+};

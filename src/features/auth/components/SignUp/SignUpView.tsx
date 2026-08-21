@@ -1,12 +1,12 @@
 "use client";
 
-import { useSignUpForm } from "@/features/auth/components/SignUp/useSignUp.hooks";
+import { Loader2Icon } from "lucide-react";
+import Link from "next/link";
+import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { PasswordInput } from "@/components/ui/PasswordInput";
-import { Loader2Icon } from "lucide-react";
 import { ROUTES } from "@/constants/routes";
-import { Button } from "@/components/ui/Button";
-import Link from "next/link";
+import { useSignUpForm } from "@/features/auth/components/SignUp/useSignUp.hooks";
 
 export function SignUpView() {
   const { form, error } = useSignUpForm();
@@ -102,5 +102,5 @@ export function SignUpView() {
         </div>
       </div>
     </div>
-  )
+  );
 }

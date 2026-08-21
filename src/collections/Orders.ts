@@ -1,7 +1,7 @@
-import type { CollectionConfig } from 'payload'
+import type { CollectionConfig } from "payload";
 
 export const Orders: CollectionConfig = {
-  slug: 'orders',
+  slug: "orders",
   access: {
     read: ({ req: { user } }) => Boolean(user),
     create: ({ req: { user } }) => Boolean(user),
@@ -10,16 +10,16 @@ export const Orders: CollectionConfig = {
   },
   fields: [
     {
-      name: 'userId',
-      type: 'text',
+      name: "userId",
+      type: "text",
     },
     {
-      name: 'totalPrice',
-      type: 'number',
+      name: "totalPrice",
+      type: "number",
     },
     {
-      name: 'status',
-      type: 'text',
+      name: "status",
+      type: "text",
     },
   ],
-}
+};

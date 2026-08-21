@@ -1,7 +1,7 @@
-import type { CollectionConfig } from 'payload'
+import type { CollectionConfig } from "payload";
 
 export const Products: CollectionConfig = {
-  slug: 'products',
+  slug: "products",
   access: {
     read: () => true,
     create: ({ req: { user } }) => Boolean(user),
@@ -9,38 +9,38 @@ export const Products: CollectionConfig = {
     delete: ({ req: { user } }) => Boolean(user),
   },
   admin: {
-    useAsTitle: 'title',
+    useAsTitle: "title",
   },
   fields: [
     {
-      name: 'title',
-      type: 'text',
+      name: "title",
+      type: "text",
       required: true,
     },
     {
-      name: 'price',
-      type: 'number',
+      name: "price",
+      type: "number",
       required: true,
       min: 0,
     },
     {
-      name: 'rating',
-      type: 'number',
+      name: "rating",
+      type: "number",
       required: true,
       min: 0,
       max: 5,
     },
     {
-      name: 'image',
-      type: 'upload',
-      relationTo: 'media',
+      name: "image",
+      type: "upload",
+      relationTo: "media",
       required: true,
     },
     {
-      name: 'category',
-      type: 'relationship',
-      relationTo: 'categories',
+      name: "category",
+      type: "relationship",
+      relationTo: "categories",
       required: true,
     },
   ],
-}
+};

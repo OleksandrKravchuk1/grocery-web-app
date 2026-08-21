@@ -3,4 +3,3 @@ import { FavoritesLoading } from "@/features/favorites/components/FavoritesLoadi
 export default function FavoritesPageLoading() {
   return <FavoritesLoading />;
 }
-
