@@ -12,7 +12,7 @@ interface CategoryGridProps {
 export function CategoryGrid({ categories }: CategoryGridProps) {
   if (!categories?.length) {
     return (
-      <div className="flex min-h-[300px] flex-col items-center justify-center rounded-2xl border border-dashed border-zinc-200 bg-zinc-50 p-8 text-center dark:border-zinc-800 dark:bg-zinc-900/50">
+      <div className="flex min-h-75 flex-col items-center justify-center rounded-2xl border border-dashed border-zinc-200 bg-zinc-50 p-8 text-center dark:border-zinc-800 dark:bg-zinc-900/50">
         <FolderIcon className="mb-4 h-12 w-12 text-zinc-300 dark:text-zinc-600" />
         <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-50">
           No Categories Found
@@ -32,7 +32,7 @@ export function CategoryGrid({ categories }: CategoryGridProps) {
           href={ROUTES.categories.category(category.id.toString())}
           className="group relative flex flex-col items-center justify-center overflow-hidden rounded-2xl border border-zinc-100 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:border-zinc-800 dark:bg-zinc-950"
         >
-          <div className="absolute inset-0 bg-gradient-to-br from-green-500/5 to-teal-500/5 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+          <div className="absolute inset-0 bg-linear-to-br from-green-500/5 to-teal-500/5 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
           <div className="relative mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-50 text-green-600 transition-transform duration-300 group-hover:scale-110 dark:bg-green-950/30 dark:text-green-500">
             {category.icon && category.icon.includes("http") ? (

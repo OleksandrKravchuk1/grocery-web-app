@@ -15,6 +15,7 @@ import { ProductCard } from "@/features/product/components/ProductCard";
 import { ProductCardSkeleton } from "@/features/product/components/ProductCardSkeleton";
 import { useProductsByCategoryId } from "@/features/product/hooks/useProductsByCategoryId";
 import type { Category } from "../services/categories";
+import { BackButton } from "@/components/ui/BackButton";
 
 interface CategoryDetailViewProps {
   categoryId: number;
@@ -47,13 +48,7 @@ export function CategoryDetailView({
       <div className="mx-auto max-w-6xl animate-in fade-in duration-500">
         {/* Navigation & Header */}
         <div className="mb-8">
-          <Link
-            href={ROUTES.categories.root}
-            className="inline-flex items-center gap-2 text-sm font-medium text-zinc-500 transition-colors hover:text-green-600 dark:text-zinc-400 dark:hover:text-green-400 mb-4"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            <span>All Categories</span>
-          </Link>
+          <BackButton href={ROUTES.categories.root} label="All categories" />
 
           <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-center gap-3">
@@ -93,7 +88,7 @@ export function CategoryDetailView({
             ))}
           </div>
         ) : isError ? (
-          <div className="flex min-h-[300px] flex-col items-center justify-center rounded-2xl border border-dashed border-red-200 bg-red-50/50 p-8 text-center dark:border-red-900/50 dark:bg-red-950/20">
+          <div className="flex min-h-75 flex-col items-center justify-center rounded-2xl border border-dashed border-red-200 bg-red-50/50 p-8 text-center dark:border-red-900/50 dark:bg-red-950/20">
             <AlertCircle className="mb-4 h-12 w-12 text-red-500" />
             <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-50">
               Failed to load products
@@ -112,7 +107,7 @@ export function CategoryDetailView({
             </Button>
           </div>
         ) : products.length === 0 ? (
-          <div className="flex min-h-[320px] flex-col items-center justify-center rounded-2xl border border-dashed border-zinc-200 bg-white p-8 text-center dark:border-zinc-800 dark:bg-zinc-900/40">
+          <div className="flex min-h-80 flex-col items-center justify-center rounded-2xl border border-dashed border-zinc-200 bg-white p-8 text-center dark:border-zinc-800 dark:bg-zinc-900/40">
             <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-zinc-100 text-zinc-400 dark:bg-zinc-800 dark:text-zinc-500">
               <PackageOpen className="h-8 w-8" />
             </div>
