@@ -2,7 +2,7 @@ import { Heart } from "lucide-react";
 
 type Props = {
   isFavorite: boolean;
-  onClick: () => void;
+  onClick: (e: React.MouseEvent) => void;
   className?: string;
 };
 
