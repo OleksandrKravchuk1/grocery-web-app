@@ -8,25 +8,27 @@ export const getProductsFn = async ({
   search,
   limit = 10,
 }: GetProductsParams): Promise<Product[]> => {
-  const { data } = await api.get('/products');
+  const { data } = await api.get('/products', {
+    params: {
+      search: search || undefined,
+      take: limit,
+    },
+  });
 
-  let filtered = data;
-
-  if (search) {
-    filtered = filtered.filter((p: any) =>
-      p.title.toLowerCase().includes(search.toLowerCase()),
-    );
-  }
-
-  return filtered.slice(0, limit).map(mapProduct);
+  return data.map(mapProduct);
 };
 
 export async function getProductsByCategoryId(
   categoryId: number,
 ): Promise<Product[]> {
-  const { data } = await api.get('/products');
+  const { data } = await api.get('/products', {
+    params: {
+      categoryId,
+      take: 50,
+    },
+  });
 
-  return data.filter((p: any) => p.category_id === categoryId).map(mapProduct);
+  return data.map(mapProduct);
 }
 
 export async function getProductsByIds(ids: number[]): Promise<Product[]> {
@@ -39,7 +41,7 @@ export async function getProductsByIds(ids: number[]): Promise<Product[]> {
 
 export async function getProductById(id: number): Promise<Product | null> {
   try {
-    const { data } = await api.get(`products/${id}`);
+    const { data } = await api.get(`/products/${id}`);
 
     return mapProduct(data);
   } catch (error) {

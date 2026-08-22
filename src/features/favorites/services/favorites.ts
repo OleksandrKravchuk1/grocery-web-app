@@ -1,33 +1,34 @@
 "use server";
 
-import { prisma } from "@/lib/prisma";
+import { api } from "@/api/client";
 
-export async function addFavorite(userId: string, productId: number) {
-  const fav = await prisma.favourite.upsert({
-    where: { userId_productId: { userId, productId } },
-    create: { userId, productId },
-    update: {},
-  });
-  return fav.productId;
+export async function addFavorite(_userId: string, productId: number) {
+  try {
+    const { data } = await api.post(`/favourites/${productId}`);
+    return data.product_id;
+  } catch (error) {
+    console.error("Failed to add favorite:", error);
+    throw error;
+  }
 }
 
-export async function deleteFavorite(userId: string, productId: number) {
-  return prisma.favourite.deleteMany({
-    where: { userId, productId },
-  });
+
+export async function deleteFavorite(_userId: string, productId: number) {
+  try {
+    await api.delete(`/favourites/${productId}`);
+    return productId;
+  } catch (error) {
+    console.error("Failed to delete favorite:", error);
+    throw error;
+  }
 }
 
-export async function getFavorites(userId: string): Promise<number[]> {
-  const favs = await prisma.favourite.findMany({
-    where: { userId },
-    select: { productId: true },
-    orderBy: { id: "desc" },
-  });
-  return favs.map((f) => f.productId).filter((id): id is number => id !== null);
-}
 
-export async function isFavourite(userId: string, productId: number) {
-  return prisma.favourite.findFirst({
-    where: { userId, productId },
-  });
+export async function getFavorites(_userId: string): Promise<number[]> {
+  try {
+    const { data } = await api.get("/favourites");
+    return data.map((f: any) => f.product_id);
+  } catch (error) {
+    return [];
+  }
 }
