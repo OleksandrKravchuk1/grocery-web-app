@@ -14,11 +14,13 @@ import { Button } from "@/components/ui/Button";
 import { navbarLinks } from "@/constants/navbar.constants";
 import { ROUTES } from "@/constants/routes";
 import useOpenState from "@/hooks/useOpenState";
+import { useCart } from "@/features/cart/hooks/useCart";
 
 const linkBaseClass = "block rounded-md px-3 py-2 transition-colors";
 const iconBaseClass = "rounded-full p-2 transition-colors";
 
 const Navbar = () => {
+  const { totalItems } = useCart();
   const { isOpen, open, close } = useOpenState();
   const pathname = usePathname();
 
@@ -84,6 +86,13 @@ const Navbar = () => {
               )}
             >
               <ShoppingBasketIcon className="h-5 w-5" />
+              {totalItems > 0 && (
+                <span className="absolute top-4 right-18 flex h-5 w-5 items-center justify-center 
+                rounded-full bg-green-600 text-[8px] font-semibold text-white shadow-xs animate-in zoom-in-50 
+                duration-200">
+                  {totalItems > 99 ? "99+" : totalItems}
+                </span>
+              )}
             </Link>
             <Link
               href={ROUTES.profile.root}

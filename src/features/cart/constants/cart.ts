@@ -1,0 +1,1 @@
+export const CART_STORAGE_KEY = "grabber_cart:v1";
