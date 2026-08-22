@@ -24,3 +24,14 @@ export type Order = {
   updated_at: string;
   order_items: OrderItem[];
 };
+
+export type CreateOrderItemPayload = {
+  productId: number;
+  quantity: number;
+  price: number;
+};
+
+export type CreateOrderPayload = {
+  totalPrice: number;
+  items: CreateOrderItemPayload[];
+};

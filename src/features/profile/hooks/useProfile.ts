@@ -15,7 +15,7 @@ export function useProfile() {
     queryKey: QUERY_KEYS.profile(user?.id),
     queryFn: () => {
       if (!user?.id) throw new Error("User not logged in");
-      return fetchProfile(user.id);
+      return fetchProfile();
     },
     enabled: !!user?.id,
     select: toFormValues,

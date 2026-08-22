@@ -1,65 +1,52 @@
 "use server";
 
+import { api } from "@/api/client";
 import type { ProfileFormValues } from "@/features/profile/types/profile";
-import { prisma } from "@/lib/prisma";
 
-export async function fetchProfile(userId: string) {
-  if (!userId) return null;
+export async function fetchProfile() {
+  try {
+    const { data } = await api.get('/users/me');
 
-  const profile = await prisma.profile.findUnique({
-    where: { id: userId },
-  });
+    if (!data) {
+      return null;
+    }
 
-  if (!profile) return null;
-
-  return {
-    id: profile.id,
-    firstName: profile.firstName,
-    lastName: profile.lastName ?? "",
-    phone: profile.phone ?? "",
-    gender: profile.gender ?? "",
-    birthday: profile.birthday
-      ? profile.birthday.toISOString().slice(0, 10)
-      : "",
-  };
-}
-
-export async function saveProfile(userId: string, values: ProfileFormValues) {
-  if (!userId) throw new Error("User ID is required");
-
-  if (values.birthday && Number.isNaN(new Date(values.birthday).getTime())) {
-    throw new Error(
-      "Invalid date. Please enter a valid date in YYYY-MM-DD format",
-    );
+    return {
+      id: data.id,
+      firstName: data.first_name,
+      lastName: data.last_name,
+      phone: data.phone ?? '',
+      gender: data.gender ?? '',
+      birthday: data.birthday ? String(data.birthday).slice(0, 10) : '',
+    };
+  } catch (error) {
+    console.error("Failed to fetch profile from backend:", error);
+    return null;
   }
-
-  const profile = await prisma.profile.upsert({
-    where: { id: userId },
-    update: {
-      firstName: values.firstName.trim(),
-      lastName: values.lastName.trim() || null,
-      phone: values.phone.trim() || null,
-      gender: values.gender,
-      birthday: values.birthday ? new Date(values.birthday) : null,
-    },
-    create: {
-      id: userId,
-      firstName: values.firstName.trim(),
-      lastName: values.lastName.trim() || null,
-      phone: values.phone.trim() || null,
-      gender: values.gender,
-      birthday: values.birthday ? new Date(values.birthday) : null,
-    },
-  });
-
-  return {
-    id: profile.id,
-    firstName: profile.firstName,
-    lastName: profile.lastName ?? "",
-    phone: profile.phone ?? "",
-    gender: profile.gender ?? "",
-    birthday: profile.birthday
-      ? profile.birthday.toISOString().slice(0, 10)
-      : "",
-  };
 }
+
+export async function saveProfile(_userId: string, values: ProfileFormValues) {
+  try {
+    const payload = {
+      firstName: values.firstName.trim(),
+      lastName: values.lastName.trim(),
+      phone: values.phone.trim() || undefined,
+      gender: values.gender ? values.gender.toLowerCase() : undefined,
+    };
+
+    const { data } = await api.patch("/users/me", payload);
+
+    return {
+      id: data.id,
+      firstName: data.first_name || data.firstName,
+      lastName: data.last_name || data.lastName || "",
+      phone: data.phone ?? "",
+      gender: data.gender ?? "",
+      birthday: data.birthday ? String(data.birthday).slice(0, 10) : "",
+    };
+  } catch (error: any) {
+    const message = error.response?.data?.message || error.message || "Failed to save profile";
+    throw new Error(Array.isArray(message) ? message.join(", ") : message);
+  }
+}
+
