@@ -19,15 +19,18 @@ import { ROUTES } from "@/constants/routes";
 import { useFavoriteProducts } from "@/features/favorites/hooks/useFavoriteProducts";
 import { Product } from "../types/product";
 import { BackButton } from "@/components/ui/BackButton";
+import { useCart } from "@/features/cart/hooks/useCart";
 
 interface ProductDetailViewProps {
   product: Product;
 }
 
 export function ProductDetailView({ product }: ProductDetailViewProps) {
+  const { addToCart } = useCart();
   const [quantity, setQuantity] = useState(1);
   const [isAdded, setIsAdded] = useState(false);
   const { favoriteIds, toggleFavorite } = useFavoriteProducts();
+
   const isFavorite = favoriteIds.includes(product.id);
 
   const handleDecrease = () => {
@@ -39,6 +42,7 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
   };
 
   const handleAddToCart = () => {
+    addToCart(product, quantity);
     setIsAdded(true);
 
     setTimeout(() => {
