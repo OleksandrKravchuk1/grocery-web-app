@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useQueryClient } from "@tanstack/react-query";
 import { HeartIcon } from "lucide-react";
@@ -44,7 +44,7 @@ export function FavoritePageView() {
         {!isLoading && !isError && isEmpty && <FavoritesEmpty />}
 
         {!isLoading && !isError && !isEmpty && (
-          <div className="flex flex-wrap gap-6">
+          <div className="flex flex-wrap gap-6 sm:gap-8">
             {products.map((product) => {
               if (!product) return null;
               return (
