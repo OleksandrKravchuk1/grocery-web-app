@@ -28,7 +28,7 @@ export function ProfileFormField({
           id={id}
           type={type}
           maxLength={maxLength}
-          value={field.state.value}
+          value={field.state.value ?? ""}
           onChange={(e) => {
             const rawVal = e.target.value;
             const finalVal = onChangeText ? onChangeText(rawVal) : rawVal;

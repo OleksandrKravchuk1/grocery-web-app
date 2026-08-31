@@ -11,4 +11,7 @@ export const QUERY_KEYS = {
   categories: () => ["categories"] as const,
   profile: (userId?: string) => buildKey("profile", userId || ""),
   cart: () => ["cart"] as const,
+  orders: (userId?: string) => buildKey("orders", userId || ""),
+  deliveryStatus: (orderId?: number) => buildKey("deliveryStatus", orderId),
 } as const;
+

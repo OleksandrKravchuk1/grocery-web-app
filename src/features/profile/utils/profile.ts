@@ -5,13 +5,10 @@ import {
 } from "@/features/profile/types/profile";
 
 export function toGender(value?: string | null): Gender {
-  if (
-    value === Gender.Male ||
-    value === Gender.Female ||
-    value === Gender.Other
-  ) {
-    return value as Gender;
-  }
+  if (!value) return Gender.Other;
+  const normalized = value.trim().toLowerCase();
+  if (normalized === "male") return Gender.Male;
+  if (normalized === "female") return Gender.Female;
   return Gender.Other;
 }
 
