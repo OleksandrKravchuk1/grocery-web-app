@@ -13,8 +13,8 @@ export async function fetchProfile() {
 
     return {
       id: data.id,
-      firstName: data.first_name,
-      lastName: data.last_name,
+      firstName: data.first_name || data.firstName || '',
+      lastName: data.last_name || data.lastName || '',
       phone: data.phone ?? '',
       gender: data.gender ?? '',
       birthday: data.birthday ? String(data.birthday).slice(0, 10) : '',
@@ -32,13 +32,14 @@ export async function saveProfile(_userId: string, values: ProfileFormValues) {
       lastName: values.lastName.trim(),
       phone: values.phone.trim() || undefined,
       gender: values.gender ? values.gender.toLowerCase() : undefined,
+      birthday: values.birthday.trim() || undefined,
     };
 
     const { data } = await api.patch("/users/me", payload);
 
     return {
       id: data.id,
-      firstName: data.first_name || data.firstName,
+      firstName: data.first_name || data.firstName || '',
       lastName: data.last_name || data.lastName || "",
       phone: data.phone ?? "",
       gender: data.gender ?? "",

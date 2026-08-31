@@ -1,7 +1,7 @@
-﻿"use server";
+"use server";
 
 import { api } from "@/api/client";
-import type { CreateOrderPayload, Order } from "../types/order";
+import type { CreateOrderPayload, DeliveryStatusResponse, Order } from "../types/order";
 
 export async function getUserOrders(): Promise<Order[]> {
   try {
@@ -10,6 +10,23 @@ export async function getUserOrders(): Promise<Order[]> {
   } catch (error) {
     console.error("Failed to fetch user orders:", error);
     return [];
+  }
+}
+
+export async function getDeliveryStatus(
+  orderId: number,
+): Promise<DeliveryStatusResponse> {
+  try {
+    const { data } = await api.get<DeliveryStatusResponse>(
+      `/deliveries/${orderId}/status`,
+    );
+    return data;
+  } catch (error) {
+    console.error(`Failed to fetch delivery status for order ${orderId}:`, error);
+    return {
+      status: "pending",
+      location: null,
+    };
   }
 }
 
@@ -24,3 +41,4 @@ export async function createOrder(payload: CreateOrderPayload): Promise<Order> {
     throw new Error(Array.isArray(message) ? message.join(", ") : message);
   }
 }
+

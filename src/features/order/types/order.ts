@@ -1,4 +1,6 @@
-﻿export type OrderItem = {
+export * from "./delivery";
+
+export type OrderItem = {
   id: number;
   order_id: number;
   product_id: number;
@@ -23,6 +25,13 @@ export type Order = {
   created_at: string;
   updated_at: string;
   order_items: OrderItem[];
+  deliveries?: {
+    id: number;
+    order_id: number;
+    status: string;
+    current_lat: string | number | null;
+    current_lng: string | number | null;
+  } | null;
 };
 
 export type CreateOrderItemPayload = {
@@ -35,3 +44,4 @@ export type CreateOrderPayload = {
   totalPrice: number;
   items: CreateOrderItemPayload[];
 };
+
