@@ -12,9 +12,28 @@ interface OrderListProps {
 
 type TabFilter = "all" | "active" | "completed";
 
+function getOrderStatus(order: Order): string {
+  return (order.deliveries?.status || order.status || "pending").toLowerCase();
+}
+
 export function OrderList({ orders: initialOrders }: OrderListProps) {
   const [activeTab, setActiveTab] = useState<TabFilter>("all");
   const { data: orders = initialOrders, isFetching, refetch } = useOrders(initialOrders);
+
+  const { activeCount, completedCount } = useMemo(() => {
+    if (!orders?.length) return { activeCount: 0, completedCount: 0 };
+    let active = 0;
+    let completed = 0;
+    for (const o of orders) {
+      const s = getOrderStatus(o);
+      if (s === "delivered" || s === "completed" || s === "cancelled") {
+        completed++;
+      } else {
+        active++;
+      }
+    }
+    return { activeCount: active, completedCount: completed };
+  }, [orders]);
 
   const filteredOrders = useMemo(() => {
     if (!orders?.length) return [];
@@ -22,22 +41,27 @@ export function OrderList({ orders: initialOrders }: OrderListProps) {
     if (activeTab === "all") return orders;
 
     if (activeTab === "active") {
-      return orders.filter(
-        (o) =>
-          o.status === "pending" ||
-          o.status === "processing" ||
-          o.status === "shipped" ||
-          o.status === "delivering",
-      );
+      return orders.filter((o) => {
+        const s = getOrderStatus(o);
+        return (
+          s === "pending" ||
+          s === "processing" ||
+          s === "shipped" ||
+          s === "delivering" ||
+          s === "in_transit"
+        );
+      });
     }
 
     if (activeTab === "completed") {
-      return orders.filter(
-        (o) =>
-          o.status === "delivered" ||
-          o.status === "completed" ||
-          o.status === "cancelled",
-      );
+      return orders.filter((o) => {
+        const s = getOrderStatus(o);
+        return (
+          s === "delivered" ||
+          s === "completed" ||
+          s === "cancelled"
+        );
+      });
     }
 
     return orders;
@@ -67,32 +91,35 @@ export function OrderList({ orders: initialOrders }: OrderListProps) {
           <button
             type="button"
             onClick={() => setActiveTab("all")}
-            className={`rounded-lg px-3.5 py-1.5 text-xs font-semibold transition-all ${activeTab === "all"
-              ? "bg-white text-zinc-900 shadow-xs dark:bg-zinc-800 dark:text-zinc-50"
-              : "text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-200"
-              }`}
+            className={`rounded-lg px-3.5 py-1.5 text-xs font-semibold transition-all ${
+              activeTab === "all"
+                ? "bg-white text-zinc-900 shadow-xs dark:bg-zinc-800 dark:text-zinc-50"
+                : "text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-200"
+            }`}
           >
             All ({orders.length})
           </button>
           <button
             type="button"
             onClick={() => setActiveTab("active")}
-            className={`rounded-lg px-3.5 py-1.5 text-xs font-semibold transition-all ${activeTab === "active"
-              ? "bg-white text-zinc-900 shadow-xs dark:bg-zinc-800 dark:text-zinc-50"
-              : "text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-200"
-              }`}
+            className={`rounded-lg px-3.5 py-1.5 text-xs font-semibold transition-all ${
+              activeTab === "active"
+                ? "bg-white text-zinc-900 shadow-xs dark:bg-zinc-800 dark:text-zinc-50"
+                : "text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-200"
+            }`}
           >
-            In Progress
+            In Progress ({activeCount})
           </button>
           <button
             type="button"
             onClick={() => setActiveTab("completed")}
-            className={`rounded-lg px-3.5 py-1.5 text-xs font-semibold transition-all ${activeTab === "completed"
-              ? "bg-white text-zinc-900 shadow-xs dark:bg-zinc-800 dark:text-zinc-50"
-              : "text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-200"
-              }`}
+            className={`rounded-lg px-3.5 py-1.5 text-xs font-semibold transition-all ${
+              activeTab === "completed"
+                ? "bg-white text-zinc-900 shadow-xs dark:bg-zinc-800 dark:text-zinc-50"
+                : "text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-200"
+            }`}
           >
-            Completed
+            Completed ({completedCount})
           </button>
         </div>
 
