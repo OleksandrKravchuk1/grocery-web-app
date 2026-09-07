@@ -1,3 +1,5 @@
+import { Category } from "@/features/category/types/category";
+
 export type GetProductsParams = {
   search: string;
   limit?: number;
@@ -10,4 +12,9 @@ export type Product = {
   rating?: number;
   image?: { url: string } | null;
   category_id?: number;
+};
+
+export type ProductPageViewProps = {
+  initialProducts: Product[];
+  categories: Category[];
 };

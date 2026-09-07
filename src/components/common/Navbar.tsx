@@ -9,7 +9,6 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import Search from "@/components/common/Search";
 import { Button } from "@/components/ui/Button";
 import { navbarLinks } from "@/constants/navbar.constants";
 import { ROUTES } from "@/constants/routes";
@@ -61,8 +60,8 @@ const Navbar = () => {
                 <Link
                   href={item.href}
                   className={clsx(
-                    "transition-colors hover:text-green-600",
-                    isActive(item.href) && "text-green-600",
+                    "transition-colors hover:text-green-600 font-medium",
+                    isActive(item.href) && "text-green-600 font-semibold",
                   )}
                 >
                   {item.label}
@@ -71,25 +70,20 @@ const Navbar = () => {
             ))}
           </ul>
 
-          <div className="hidden md:block">
-            <Search />
-          </div>
-
           <div className="flex items-center gap-4">
             <Link
               href={ROUTES.cart.root}
               className={clsx(
                 iconBaseClass,
+                "relative",
                 isActive(ROUTES.cart.root)
                   ? "text-green-600"
-                  : "hover:bg-green-600",
+                  : "hover:bg-green-600 hover:text-white",
               )}
             >
               <ShoppingBasketIcon className="h-5 w-5" />
               {totalItems > 0 && (
-                <span className="absolute top-4 right-18 flex h-5 w-5 items-center justify-center 
-                rounded-full bg-green-600 text-[8px] font-semibold text-white shadow-xs animate-in zoom-in-50 
-                duration-200">
+                <span className="absolute -top-1 -right-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-green-600 px-1 text-[9px] font-bold text-white shadow-xs animate-in zoom-in-50 duration-200">
                   {totalItems > 99 ? "99+" : totalItems}
                 </span>
               )}
@@ -100,7 +94,7 @@ const Navbar = () => {
                 iconBaseClass,
                 isActive(ROUTES.profile.root)
                   ? "text-green-600"
-                  : "hover:bg-green-600",
+                  : "hover:bg-green-600 hover:text-white",
               )}
             >
               <UserRoundIcon className="h-5 w-5" />
@@ -111,10 +105,6 @@ const Navbar = () => {
 
       {isOpen && (
         <div className="mt-4 border-t border-zinc-200 pt-4 dark:border-zinc-800 md:hidden">
-          <div className="mb-4">
-            <Search />
-          </div>
-
           <ul className="flex flex-col gap-2">
             {navbarLinks.map((item) => (
               <li key={item.href}>
@@ -123,7 +113,7 @@ const Navbar = () => {
                   onClick={handleMobileNavClick}
                   className={clsx(
                     linkBaseClass,
-                    isActive(item.href) && "text-green-600",
+                    isActive(item.href) && "text-green-600 font-semibold",
                   )}
                 >
                   {item.label}
@@ -131,29 +121,31 @@ const Navbar = () => {
               </li>
             ))}
 
-            <li className="pt-2">
+            <li className="pt-2 border-t border-zinc-200 dark:border-zinc-800">
               <div className="flex items-center gap-3">
                 <Link
                   href={ROUTES.cart.root}
                   onClick={handleMobileNavClick}
                   className={clsx(
                     linkBaseClass,
-                    isActive(ROUTES.cart.root) && "text-green-600",
+                    "flex items-center gap-2",
+                    isActive(ROUTES.cart.root) && "text-green-600 font-semibold",
                   )}
                 >
                   <ShoppingBasketIcon className="h-5 w-5" />
-                  Cart
+                  <span>Cart {totalItems > 0 ? `(${totalItems})` : ""}</span>
                 </Link>
                 <Link
                   href={ROUTES.profile.root}
                   onClick={handleMobileNavClick}
                   className={clsx(
                     linkBaseClass,
-                    isActive(ROUTES.profile.root) && "text-green-600",
+                    "flex items-center gap-2",
+                    isActive(ROUTES.profile.root) && "text-green-600 font-semibold",
                   )}
                 >
                   <UserRoundIcon className="h-5 w-5" />
-                  Profile
+                  <span>Profile</span>
                 </Link>
               </div>
             </li>
